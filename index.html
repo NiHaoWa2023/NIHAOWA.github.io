@@ -161,7 +161,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/09/13/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">线性模型之从零开始实现</a>
+          <a href="/2023/09/13/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">线性模型</a>
         </h2>
 
         <div class="post-meta-container">
@@ -171,9 +171,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2023-09-13 15:50:07 / Modified: 19:51:25" itemprop="dateCreated datePublished" datetime="2023-09-13T15:50:07+08:00">2023-09-13</time>
+      <time title="Created: 2023-09-13 15:50:07" itemprop="dateCreated datePublished" datetime="2023-09-13T15:50:07+08:00">2023-09-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-09-14 22:28:01" itemprop="dateModified" datetime="2023-09-14T22:28:01+08:00">2023-09-14</time>
     </span>
 
   
@@ -186,7 +192,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="1-导入相关包"><a href="#1-导入相关包" class="headerlink" title="1.导入相关包"></a>1.导入相关包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">import random</span><br><span class="line">import torch</span><br><span class="line">from d2l import torch as d2l</span><br></pre></td></tr></table></figure>
+          <h1 id="从零开始实现"><a href="#从零开始实现" class="headerlink" title="从零开始实现"></a>从零开始实现</h1><h2 id="1-导入相关包"><a href="#1-导入相关包" class="headerlink" title="1.导入相关包"></a>1.导入相关包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">import random</span><br><span class="line">import torch</span><br><span class="line">from d2l import torch as d2l</span><br></pre></td></tr></table></figure>
 
 <h2 id="2-人工构造数据集"><a href="#2-人工构造数据集" class="headerlink" title="2.人工构造数据集"></a>2.人工构造数据集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def synthetic_data(w,b,num_examples):</span><br><span class="line">  X = torch.normal(0,1,(num_examples,len(w)))</span><br><span class="line">  y = torch.matmul(X,w)+b</span><br><span class="line">  y += torch.normal(0,0.01,y.shape) # 加上噪音</span><br><span class="line">  return X,y.reshape((-1,1)) # y作为列向量返回</span><br><span class="line"></span><br><span class="line">true_w = torch.tensor([2,-3.4])</span><br><span class="line">true_b = 4.2</span><br><span class="line">features,labels = synthetic_data(true_w,true_b,1000)</span><br></pre></td></tr></table></figure>
 
@@ -209,6 +215,24 @@
 <h2 id="6-构造优化器和损失函数"><a href="#6-构造优化器和损失函数" class="headerlink" title="6.构造优化器和损失函数"></a>6.构造优化器和损失函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 损失函数</span><br><span class="line">def squared_loss(y_hat,y):</span><br><span class="line">  &#x27;&#x27;&#x27;均方损失&#x27;&#x27;&#x27;</span><br><span class="line">  return (y_hat-y.reshape(y.shape))**2/2</span><br><span class="line"></span><br><span class="line"># 优化算法</span><br><span class="line">def sgd(params,lr,batch_size): # params是一个list,包含w和b</span><br><span class="line">  &#x27;&#x27;&#x27;小批量随机梯度下降&#x27;&#x27;&#x27;</span><br><span class="line">  with torch.no_grad(): # 做更新时，不需要计算梯度</span><br><span class="line">    for param in params:</span><br><span class="line">      param -= lr*params.grad / batch_size</span><br><span class="line">      param.grad.zero_() # 梯度清零，防止下一轮计算梯度时，梯度会发生叠加</span><br></pre></td></tr></table></figure>
 
 <h2 id="7-训练模型"><a href="#7-训练模型" class="headerlink" title="7.训练模型"></a>7.训练模型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">lr = 0.03</span><br><span class="line">num_epochs = 3</span><br><span class="line">batch_size = 10</span><br><span class="line">net = linreg</span><br><span class="line">loss = squared_loss</span><br><span class="line"></span><br><span class="line">for epoch in range(num_epochs):</span><br><span class="line">    for X, y in data_iter(batch_size, features, labels):</span><br><span class="line">        l = loss(net(X, w, b), y)  # X和y的小批量损失</span><br><span class="line">        # 因为l形状是(batch_size,1)，而不是一个标量。l中的所有元素被加到一起，</span><br><span class="line">        # 并以此计算关于[w,b]的梯度</span><br><span class="line">        l.sum().backward()</span><br><span class="line">        sgd([w, b], lr, batch_size)  # 使用参数的梯度更新参数</span><br><span class="line">    with torch.no_grad():</span><br><span class="line">        train_l = loss(net(features, w, b), labels)</span><br><span class="line">        print(f&#x27;epoch &#123;epoch + 1&#125;, loss &#123;float(train_l.mean()):f&#125;&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="简洁实现"><a href="#简洁实现" class="headerlink" title="简洁实现"></a>简洁实现</h1><h2 id="1-导入相关的包"><a href="#1-导入相关的包" class="headerlink" title="1.导入相关的包"></a>1.导入相关的包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import torch</span><br><span class="line">from torch.utils import data</span><br><span class="line">from d2l import torch as d2l</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-准备数据集"><a href="#2-准备数据集" class="headerlink" title="2.准备数据集"></a>2.准备数据集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">w = torch.tensor([2,-3.4])</span><br><span class="line">b = 4.2</span><br><span class="line">features, labels = d2l.synthetic_data(w,b,1000)</span><br><span class="line"></span><br><span class="line">def load_array(data_arrays,batch_size,is_train=True):</span><br><span class="line">  &#x27;&#x27;&#x27;构造生成器，以提高运算速度&#x27;&#x27;&#x27;</span><br><span class="line">  dataset = data.TensorDataset(*data_arrays)#向函数传递参数，将变量中可迭代对象的元素拆解出来，作为独立的参数第传给函数</span><br><span class="line">  return data.DataLoader(dataset,batch_size,shuffle=is_train)</span><br><span class="line">batch_size = 10</span><br><span class="line">data_iter=load_array((features,labels),batch_size)</span><br><span class="line"></span><br><span class="line">next(iter(data_iter))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>详解python中 ***** 的用法： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89304906">详解python中*号的用法！(含实例：零基础也看能懂） - 知乎 (zhihu.com)</a> </p>
+</li>
+<li><p>next(),iter(): <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42782150/article/details/109315355">Python中next()函数、iter()以及next(iter())函数的用法详解_next(iter)_Yale曼陀罗的博客-CSDN博客</a></p>
+</li>
+</ul>
+<h2 id="3-构建模型"><a href="#3-构建模型" class="headerlink" title="3.构建模型"></a>3.构建模型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net = nn.Sequential(nn.Linear(2,1))</span><br><span class="line"># Sequential()可以理解成 数组，然后通过下标的方式，直接选择某一层</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-初始化模型参数"><a href="#4-初始化模型参数" class="headerlink" title="4.初始化模型参数"></a>4.初始化模型参数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net[0].weight.data.normal_(0,0.01)</span><br><span class="line">net[0].bias.data.fill_(0)</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-构造损失函数和优化器"><a href="#5-构造损失函数和优化器" class="headerlink" title="5.构造损失函数和优化器"></a>5.构造损失函数和优化器</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.MSELoss()</span><br><span class="line">trainer = torch.optims.SGD(net.parameters(),lr=0.03)</span><br></pre></td></tr></table></figure>
 
 
       
