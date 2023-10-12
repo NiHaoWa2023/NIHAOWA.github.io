@@ -112,12 +112,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -134,6 +134,205 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/12/C-%E4%B8%ADstatic%E7%9A%84%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈健">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/12/C-%E4%B8%ADstatic%E7%9A%84%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">C++中static的用法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-10-12 15:17:45 / Modified: 16:15:00" itemprop="dateCreated datePublished" datetime="2023-10-12T15:17:45+08:00">2023-10-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>C&#x2F;C++的内存分布</strong></p>
+<ul>
+<li>栈区：由编译器自动分配释放，例如局部变量、函数参数等，会随着作用域推出而释放空间</li>
+<li>堆区：由程序员分配释放，例如malloc(c)、new(c++)</li>
+<li>全局数据区（静态区）：全局变量和静态变量的存储是放在一起的，初始化的全局变量和静态变量在一块区域，未初始化的全局变量和静态变量在另一块相邻区域，程序结束时释放</li>
+<li>代码区</li>
+</ul>
+<h1 id="1-静态局部变量"><a href="#1-静态局部变量" class="headerlink" title="1.静态局部变量"></a>1.静态局部变量</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int func()&#123;</span><br><span class="line">	static int i = 1; </span><br><span class="line">	// int i = 1;</span><br><span class="line">	i++;</span><br><span class="line">	return i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>静态局部变量和局部变量的区别：</strong></p>
+<ul>
+<li>前者在全局数据区分配空间、后者在栈区分配空间</li>
+<li>前者只会被初始化一次，而后者会随着函数的调用不断被初始化</li>
+<li>前者一般在声明处初始化，如果没有初始化，会被程序自动初始化为0；后者不会被自动初始化</li>
+<li>前者始终驻留全局数据区，直到程序运行结束。但其作用域为局部作用域，不能在函数体外面使用它，这是与全局变量的主要区别</li>
+</ul>
+<h1 id="2-静态全局变量"><a href="#2-静态全局变量" class="headerlink" title="2.静态全局变量"></a>2.静态全局变量</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static int i = 3;</span><br><span class="line">// int i = 3;</span><br><span class="line">int func()&#123;</span><br><span class="line">	i++;</span><br><span class="line">	return i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>静态全局变量与全局变量的区别：</strong></p>
+<ul>
+<li>前者不可以被其他文件所使用，而后者可以</li>
+<li>其他文件中可以定义相同名字的变量，不会发生冲突</li>
+</ul>
+<h1 id="3-静态函数"><a href="#3-静态函数" class="headerlink" title="3.静态函数"></a>3.静态函数</h1><p><strong>静态函数的作用：</strong></p>
+<ul>
+<li>静态函数不可以被其他文件所使用</li>
+<li>其他文件中可以定义相同名字的函数</li>
+</ul>
+<h1 id="4-静态数据成员"><a href="#4-静态数据成员" class="headerlink" title="4.静态数据成员"></a>4.静态数据成员</h1><p>用于修饰class的数据成员，即所谓的“静态成员”。这种数据成员的生存期大于class的对象。静态成员是每个class有一份，普通的数据成员是每一个实例有一份。因此，静态数据成员也叫类变量，普通数据成员也叫实例变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Rectangle</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int m_w,m_h;</span><br><span class="line">    static int s_sum;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    Rectangle(int w,int h)</span><br><span class="line">    &#123;</span><br><span class="line">        this-&gt;m_w = w;</span><br><span class="line">        this-&gt;m_h = h;</span><br><span class="line">        s_sum += (this-&gt;m_w * this-&gt;m_h);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    void GetSum()</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;sum = &quot;&lt;&lt;s_sum&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int Rectangle::s_sum = 0;  //初始化</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    cout&lt;&lt;&quot;sizeof(Rectangle)=&quot;&lt;&lt;sizeof(Rectangle)&lt;&lt;endl;</span><br><span class="line">    Rectangle *rect1 = new Rectangle(3,4);</span><br><span class="line">    rect1-&gt;GetSum();</span><br><span class="line">    cout&lt;&lt;&quot;sizeof(rect1)=&quot;&lt;&lt;sizeof(*rect1)&lt;&lt;endl;</span><br><span class="line">    Rectangle rect2(2,3);</span><br><span class="line">    rect2.GetSum();</span><br><span class="line">    cout&lt;&lt;&quot;sizeof(rect2)=&quot;&lt;&lt;sizeof(rect2)&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sizeof(Rectangle)&#x3D;8<br>sum &#x3D; 12<br>sizeof(rect1)&#x3D;8<br>sum &#x3D; 18<br>sizeof(rect2)&#x3D;8</p>
+<p>其中，这个8是m_w,m_h的大小，并不包含s_sum。这是因为s_sum存放在全局数据区，并不会占用类的内存空间。需要注意的是<strong>静态数据成员定义时要分配空间，所以不能在类声明中定义，而要在类外定义！</strong></p>
+<h1 id="5-静态成员函数"><a href="#5-静态成员函数" class="headerlink" title="5.静态成员函数"></a>5.静态成员函数</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Rectangle</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int m_w,m_h;</span><br><span class="line">    static int s_sum;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    Rectangle(int w,int h)</span><br><span class="line">    &#123;</span><br><span class="line">        this-&gt;m_w = w;</span><br><span class="line">        this-&gt;m_h = h;</span><br><span class="line">        s_sum += (this-&gt;m_w * this-&gt;m_h);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    static void GetSum()  //这里加上static</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;sum = &quot;&lt;&lt;s_sum&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int Rectangle::s_sum = 0;  //初始化</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    cout&lt;&lt;&quot;sizeof(Rectangle)=&quot;&lt;&lt;sizeof(Rectangle)&lt;&lt;endl;</span><br><span class="line">    Rectangle *rect1 = new Rectangle(3,4);</span><br><span class="line">    rect1-&gt;GetSum();</span><br><span class="line">    cout&lt;&lt;&quot;sizeof(rect1)=&quot;&lt;&lt;sizeof(*rect1)&lt;&lt;endl;</span><br><span class="line">    Rectangle rect2(2,3);</span><br><span class="line">    rect2.GetSum();  //可以用对象名.函数名访问</span><br><span class="line">    cout&lt;&lt;&quot;sizeof(rect2)=&quot;&lt;&lt;sizeof(rect2)&lt;&lt;endl;</span><br><span class="line">    Rectangle::GetSum();  //也可以用类名::函数名访问</span><br><span class="line"></span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>静态成员函数的特点：</strong></p>
+<ul>
+<li>静态成员函数不能访问非静态（包括函数和变量），但是非静态可以访问静态</li>
+<li>调用静态成员函数有两种调用方式：可以用对象名.函数名访问，也可以用类名::函数名访问</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/11/effectiveC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈健">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/11/effectiveC/" class="post-title-link" itemprop="url">effectiveC++</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-11 18:06:38" itemprop="dateCreated datePublished" datetime="2023-10-11T18:06:38+08:00">2023-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-12 15:18:51" itemprop="dateModified" datetime="2023-10-12T15:18:51+08:00">2023-10-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="条款一：视C-为一个语言联邦"><a href="#条款一：视C-为一个语言联邦" class="headerlink" title="条款一：视C++为一个语言联邦"></a>条款一：视C++为一个语言联邦</h1><p>C++主要由四大部分组成：</p>
+<ul>
+<li><strong>C</strong>：C++是基于C的，所以当你发现自己工作在C++的C部分时，这时候就要使用C的规则，而不应该去使用模板、异常、重载等等。C的部分主要包括内置数据类型、数组、指针等等；</li>
+<li><strong>面向对象</strong>：这一部分主要包括：类（包括构造函数和析构函数）、封装、继承、多态、虚函数等等；</li>
+<li><strong>模板</strong>：模板很强大，但是TMP（模板元编程）的规则对主流的C++编程少有影响；</li>
+<li><strong>STL</strong>：这是一个特殊的模板库，它将容器、迭代器、算法和函数对象整合在一起。</li>
+</ul>
+<p><strong>当你工作于C++的某一个部分时，就要遵守该部分的规则！！</strong></p>
+<p>例如：</p>
+<ul>
+<li>对于内置类型（C语言类型），值传递通常比引用传递更高效</li>
+<li>对于用户定义的构造函数和析构函数（面向对象），引用传递更为高效</li>
+<li>对于模板部分，你甚至不知道正在处理的对象的类型（会用 T 表示类型）</li>
+<li>对于STL，迭代器和函数对象是基于C中的指针建模的，因此，对于STL中的迭代器和函数对象，值传递的规则再次适用</li>
+</ul>
+<h1 id="条款二：不要滥用宏（优先选择编译器而非预处理器）"><a href="#条款二：不要滥用宏（优先选择编译器而非预处理器）" class="headerlink" title="条款二：不要滥用宏（优先选择编译器而非预处理器）"></a>条款二：不要滥用宏（优先选择编译器而非预处理器）</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
