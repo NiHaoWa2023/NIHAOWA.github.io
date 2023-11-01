@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1.头文件与类的声明1.1 c vs cpp 关于数据和函数  c语言中，data和函数都是分别定义，根据类型创建的。这样创建出的变量，是全局的。   cpp中，将data和函数都包含在一起（class），创建出一个对象，即为面向对象。数据和函数（类的方法）都是局部的，不是全局的。 class的两个经典分类：有指针成员的类、无指针成员的类。 1.2 头文件与类    引用自己写的头文件，用双引号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="侯捷CPP-面向对象">
+<meta property="og:url" content="http://example.com/2023/10/28/%E4%BE%AF%E6%8D%B7CPP-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.头文件与类的声明1.1 c vs cpp 关于数据和函数  c语言中，data和函数都是分别定义，根据类型创建的。这样创建出的变量，是全局的。   cpp中，将data和函数都包含在一起（class），创建出一个对象，即为面向对象。数据和函数（类的方法）都是局部的，不是全局的。 class的两个经典分类：有指针成员的类、无指针成员的类。 1.2 头文件与类    引用自己写的头文件，用双引号">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/pic/v2-50f866d9bc659de9f09bdde836c21516_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-db57c7ee5375b5da9a2fc812300896b2_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-f4568a5c15fc45b2f4caa6f31091b290_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-93b699950937cd890439cd8c19ab9583_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-3a0ec372095a6ba7a2b61c36206fa963_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-1c15a3031ce22ebc7f1662826bc5ff70_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-a9cdae3baef18341016b4bdc04a93922_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-1d7c6fbb280186af605752ccd4ab85fd_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-189cbca0760054ab7c64ec116ae7cdab_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-04689d16777e245459c930b3b591fa16_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-5b2d2e25925a9957977d3f17bbef923e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-afa8298ffe449f6b6eb5799d5d70eba7_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-f2163159d693dbd129796b21452274c2_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-8dac6020b771ed167a0d54a2bb99a460_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-a66118c315b9f0985af1a24e3c2ebfa4_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-1bee06b2e0d2c98b332cb9d08e994dba_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-661e7224f3d144ba67397ba104c26a2a_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-c53944ffbe2ce27a3f1cbe4378aac69a_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-9f7d4eee629ed65d918b0293c76e7004_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-5271b88974c631094a9c10fc76c186c5_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-0d630be027a0f0e105c90276d80e3d6e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-e22465dd7a27b7087e9c819e86b12586_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-5ede56c5f4a1c17044bc10af1d7b6e9e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-36c07a88ca8045973b80e40a4379786a_720w.webp">
+<meta property="og:image" content="http://example.com/pic/c0205389f9444a15be5aec3998e22345.png">
+<meta property="og:image" content="http://example.com/pic/a3a8ca2161ab4a37877d8ae0381be042.png">
+<meta property="og:image" content="http://example.com/pic/v2-20fb2d9bc10c8795c5ac0072b2b2945f_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-d1a9db088e73d91cce09f04a16af46e6_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-7f4fbe8eb1f3c7961b946d9a05c626d6_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-50763f2443697a15d97eb2491251632e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-c24a165de2cfe05e50225f05ead4089a_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-15884532c6ed3656cf8afb2495df01a1_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-b43a773ab4146b697471a01f6bf47d1e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-98652a0f7ca3494d0fda72fbbe76ec57_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-d778dfa4597c14540114f4eb4611d952_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-6456a637c4a2135881e60d81710b0dd4_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-1a67ed2f4703be7542c15d46df7728f4_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-f3345c131fb9e75fedd9bc7e104284ea_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-c5869c01e5dbfaa273bc3905a26bec5f_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-22c3270573cb2e2e048814e807a42b5f_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-77d339ab83286f9acfb453f79fb8fa2f_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-2578b086aaaddf29ab5f868007f3ebdb_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-c683c87e3023d98ad2906e543e80c0d3_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-c3547ff9bb2300cb759fcfd0066a8aa6_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-7ace3908d51c5ff9bcdc95c0cadc2a0f_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-9580fc2d000a9bc127d29e79c452551a_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-c9099845e52672e4bb6e2b728052437d_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-0642ccaa0a61a26d9211b38d683385fc_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-148a664e790c5f55e4a01726773e8d9a_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-f0f1a9db07962760a8cd9f74a42827ea_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-a54886febd308d561151181f461052df_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-a2211ce8c293dd66965570f277ffd08f_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-e043ac7128b4ec8a457f20fa5dda5e5b_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-823877eeda7418459424b6b23ae5a542_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-31a9a990b796ac4b32ce60aa30d7b058_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-d965ceb43cd1c75f9c8e728c5bba0865_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-0bf06a192e77e6e63638fe6a7b3fc584_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-a080f9b824991d70ce336423aa0258c7_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-374c166bce345556cf6ac943f0fe3ff1_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-1597863ee9b738e874a7638cd3d7532e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/1698569124532.png">
+<meta property="og:image" content="http://example.com/pic/1698571582183.png">
+<meta property="og:image" content="http://example.com/pic/v2-d6064fcbcaa6896e61e10393ca75bd75_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-9f4dce2b194d66245a1992303f322a50_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-0ba483c1633f5d6fd4e40f22db30df87_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-6aeda3922a3fd9799a6a0ad66975f4cb_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-03b2243e5a685034928459a4c73a046e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-ce88ad0d78e5f10e7040b507e0ad04b5_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-554b4f3499eba726dd0087b53875ec7f_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-9e9f3d5bd33687fc17442a279a78cec1_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-e41372b171f884bd1327b7a0dd9d7d7e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-aa6ff07cb0046d7f4015b573ed54dbb1_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-69b2fb385ad4f8305d00409fded8f38b_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-42f8980a8171d87d814544c8aea3e344_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-ebecd039693e116e4b8fac5230336c32_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-eec2df1c2a0f9ab647f6fb5114c3387e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-4240948ad14d3673bf52c52aac160d08_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-2fa131ceea90d1be1388a4fedad9b351_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-9f18c16d22263f40a558b1c7d698b162_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-3b79153ef053fd28bf47335dd6add584_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-d86a1d5efd1076be70c2c7490f211a90_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-f15d7044aa344febd7e311f539235e6b_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-a40f2d23b06b875efadc655e48bafc74_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-cc7d6bba21b7958ae708c631a88ae396_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-308bc476a1176b69cb35f83ef3c19aba_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-413c3c47b4b0e1dfb4526be795f926bd_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-32002cad3d1f04e291fa716ae89b4c55_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-738a5348c4b9514b07f97bf346994b4e_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-c1835b425e6aecf4a6e395fea35ca692_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-007513202d9a5cf14a218fa8cb695977_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-005e03d9c84fb6d437fc583905d5a9d5_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-341fdf3a254d9cc36274a64f4ecd5f34_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-dab935df56a5c6eca8b647d33227b9e3_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-9d9ecf7b8a6363697e27fefc0cdb1eba_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-7b39e17953fa0921ad65928311e7242b_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-c0a1b0dd788871baa23c4d76c94479f6_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-6be92ce0c738b942bdbee5870a9fa765_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-3964cfbb324035eb91326d64561724dc_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-a94532748c1040c7368e26c0ded59529_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-6ee80b3b6eba64cab3243228f732c585_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-f555d8f7eb098c424d33a0ca14622ddd_720w.webp">
+<meta property="og:image" content="http://example.com/pic/v2-406bdd8548af85f7cce2648febbf3cac_720w.webp">
+<meta property="article:published_time" content="2023-10-28T08:52:27.000Z">
+<meta property="article:modified_time" content="2023-10-29T13:13:31.093Z">
+<meta property="article:author" content="陈健">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/pic/v2-50f866d9bc659de9f09bdde836c21516_720w.webp">
+
+
+<link rel="canonical" href="http://example.com/2023/10/28/%E4%BE%AF%E6%8D%B7CPP-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/10/28/%E4%BE%AF%E6%8D%B7CPP-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/","path":"2023/10/28/侯捷CPP-面向对象/","title":"侯捷CPP-面向对象"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>侯捷CPP-面向对象 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%8E%E7%B1%BB%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">1.头文件与类的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-c-vs-cpp-%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%92%8C%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 c vs cpp 关于数据和函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%8E%E7%B1%BB"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 头文件与类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">2. 构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E4%B8%8E%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">3. 参数传递与返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD%E3%80%81%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.</span> <span class="nav-text">4. 操作符重载、临时对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E4%B8%89%E5%A4%A7%E5%87%BD%E6%95%B0%EF%BC%9A%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E3%80%81%E6%8B%B7%E8%B4%9D%E8%B5%8B%E5%80%BC%E3%80%81%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">5. 三大函数：拷贝构造、拷贝赋值、析构函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E5%A0%86%E3%80%81%E6%A0%88%E4%B8%8E%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">6. 堆、栈与内存管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E7%B1%BB%E6%A8%A1%E6%9D%BF%E3%80%81%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%BB%A5%E5%8F%8A%E8%A1%A5%E5%85%85"><span class="nav-number">7.</span> <span class="nav-text">7. 类模板、函数模板以及补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-static"><span class="nav-number">7.0.1.</span> <span class="nav-text">7.1 static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-cout"><span class="nav-number">7.0.2.</span> <span class="nav-text">7.2 cout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E6%A8%A1%E6%9D%BF"><span class="nav-number">7.0.3.</span> <span class="nav-text">7.3 模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-namespace"><span class="nav-number">7.0.4.</span> <span class="nav-text">7.4 namespace</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-%E7%BB%84%E5%90%88%E4%B8%8E%E7%BB%A7%E6%89%BF"><span class="nav-number">8.</span> <span class="nav-text">8. 组合与继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-%E5%A4%8D%E5%90%88"><span class="nav-number">8.0.1.</span> <span class="nav-text">8.1 复合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-%E5%A7%94%E6%89%98"><span class="nav-number">8.0.2.</span> <span class="nav-text">8.2 委托</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-%E7%BB%A7%E6%89%BF"><span class="nav-number">8.0.3.</span> <span class="nav-text">8.3 继承</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-%E8%99%9A%E5%87%BD%E6%95%B0%E4%B8%8E%E5%A4%9A%E6%80%81"><span class="nav-number">9.</span> <span class="nav-text">9. 虚函数与多态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-%E5%A7%94%E6%89%98-%EF%BC%8B-%E7%BB%A7%E6%89%BF"><span class="nav-number">9.0.1.</span> <span class="nav-text">9.1 委托 ＋ 继承</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0"><span class="nav-number">10.</span> <span class="nav-text">10. 转换函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-non-explicit-one-argument-ctor"><span class="nav-number">11.</span> <span class="nav-text">11. non-explicit-one-argument ctor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-pointer-like-classes"><span class="nav-number">12.</span> <span class="nav-text">12. pointer-like classes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-function-like-classes"><span class="nav-number">13.</span> <span class="nav-text">13. function-like classes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-namespace"><span class="nav-number">14.</span> <span class="nav-text">14.namespace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-%E7%B1%BB%E6%A8%A1%E6%9D%BF"><span class="nav-number">15.</span> <span class="nav-text">15.类模板</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#16-%E7%89%B9%E5%8C%96"><span class="nav-number">16.</span> <span class="nav-text">16. 特化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#17-%E6%A8%A1%E6%9D%BF%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0"><span class="nav-number">17.</span> <span class="nav-text">17. 模板模板参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#18-%E5%85%B3%E4%BA%8EC-%E6%A0%87%E5%87%86%E5%BA%93"><span class="nav-number">18.</span> <span class="nav-text">18.关于C++标准库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#19-C-11%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">19.</span> <span class="nav-text">19.C++11新特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#20-reference%E5%BC%95%E7%94%A8"><span class="nav-number">20.</span> <span class="nav-text">20. reference引用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-vptr-%E5%92%8C-vtbl"><span class="nav-number">21.</span> <span class="nav-text">21. vptr 和 vtbl</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#22-%E5%85%B3%E4%BA%8Ethis-pointer"><span class="nav-number">22.</span> <span class="nav-text">22.关于this pointer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#23-%E6%B5%85%E8%B0%88const"><span class="nav-number">23.</span> <span class="nav-text">23.浅谈const</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#24-%E5%85%B3%E4%BA%8Enew%E3%80%81delete"><span class="nav-number">24.</span> <span class="nav-text">24.关于new、delete</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">陈健</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/28/%E4%BE%AF%E6%8D%B7CPP-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈健">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="侯捷CPP-面向对象 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          侯捷CPP-面向对象
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-28 16:52:27" itemprop="dateCreated datePublished" datetime="2023-10-28T16:52:27+08:00">2023-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-29 21:13:31" itemprop="dateModified" datetime="2023-10-29T21:13:31+08:00">2023-10-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="1-头文件与类的声明"><a href="#1-头文件与类的声明" class="headerlink" title="1.头文件与类的声明"></a>1.头文件与类的声明</h1><h3 id="1-1-c-vs-cpp-关于数据和函数"><a href="#1-1-c-vs-cpp-关于数据和函数" class="headerlink" title="1.1 c vs cpp 关于数据和函数"></a>1.1 c vs cpp 关于数据和函数</h3><p><img src="/../pic/v2-50f866d9bc659de9f09bdde836c21516_720w.webp" alt="v2-50f866d9bc659de9f09bdde836c21516_720w"></p>
+<ul>
+<li><p>c语言中，data和函数都是分别定义，根据类型创建的。这样创建出的变量，是全局的。 </p>
+</li>
+<li><p>cpp中，将data和函数都包含在一起（class），创建出一个对象，即为面向对象。数据和函数（类的方法）都是局部的，不是全局的。</p>
+<p>class的两个经典分类：有指针成员的类、无指针成员的类。</p>
+<h3 id="1-2-头文件与类"><a href="#1-2-头文件与类" class="headerlink" title="1.2 头文件与类"></a>1.2 头文件与类</h3></li>
+</ul>
+<p><img src="/../pic/v2-db57c7ee5375b5da9a2fc812300896b2_720w.webp" alt="v2-db57c7ee5375b5da9a2fc812300896b2_720w"></p>
+<ul>
+<li>引用自己写的头文件，用双引号</li>
+</ul>
+<p>头文件的标准写法：<img src="/../pic/v2-f4568a5c15fc45b2f4caa6f31091b290_720w.webp" alt="v2-f4568a5c15fc45b2f4caa6f31091b290_720w"></p>
+<ul>
+<li><strong>首先是防卫式声明，如果没定义这个名词（<strong>COMPLEX</strong>)，那么就定义一下。ifndef+define。</strong>（这样如果程序是第一次引用它，则定义，后续则不需要重复定义，不需要重复进入下面的过程）</li>
+</ul>
+<ul>
+<li>1是要写的类的声明，2是要写类的具体定义，写1、2的时候发现有一些东西需要提前声明，写在0处。</li>
+</ul>
+<p><img src="/../pic/v2-93b699950937cd890439cd8c19ab9583_720w.webp" alt="v2-93b699950937cd890439cd8c19ab9583_720w"></p>
+<ul>
+<li>模板类型，这里用符号T表示。</li>
+<li>这里的意思是，因为实部和虚部的类型不确定，可能是double、float、int，定义起来比较费劲。我自己定义一个模板类型叫做T来满足这个要求。</li>
+<li>将T作为一个类型参数来传入，在调用的时候就可以指定类型了。</li>
+<li>通过在定义类的前面加入一行代码<code>template&lt;typename T&gt;</code>来实现。</li>
+</ul>
+<h1 id="2-构造函数"><a href="#2-构造函数" class="headerlink" title="2. 构造函数"></a>2. 构造函数</h1><p><img src="/../pic/v2-3a0ec372095a6ba7a2b61c36206fa963_720w.webp" alt="v2-3a0ec372095a6ba7a2b61c36206fa963_720w"></p>
+<ul>
+<li>定义类的时候，<strong>可以直接在body中定义函数（inline函数，在body中定义完成）</strong>，也可以只是在body中声明函数。</li>
+<li>inline内联函数。<strong>如果定义的函数是内联函数，那么会比较好，运行比较快，尽可能定义为内联函数。</strong></li>
+<li>在body外，通过inline关键字来指定该函数为inline函数。</li>
+<li>注意的是，上面所有的inline函数，都只是我们指定的，希望它为inline，具体是不是，要看编译器来决定。一般较为简单的函数，编译器会允许其成为inline函数。对于较为复杂的函数，编译器会拒绝。</li>
+</ul>
+<p><img src="/../pic/v2-1c15a3031ce22ebc7f1662826bc5ff70_720w.webp" alt="v2-1c15a3031ce22ebc7f1662826bc5ff70_720w"></p>
+<ul>
+<li>数据应该被定为private，这样外界看不到。函数应该定义为public，被外界使用。 这里的外界是相对于class而言。</li>
+</ul>
+<p><img src="/../pic/v2-a9cdae3baef18341016b4bdc04a93922_720w.webp" alt="v2-a9cdae3baef18341016b4bdc04a93922_720w"></p>
+<ul>
+<li>通过构造函数来创建对象，编译器会自动调用构造函数进行创建。</li>
+<li>构造函数名称需要与类的名称一样。函数的参数可以有默认参数。构造函数没有返回类型。</li>
+<li>注意，不要使用赋值的方法来写构造函数，<strong>使用构造函数的特殊的方法来写，更规范。</strong>使用初值列、初始值。这样更为正规、大气。</li>
+</ul>
+<p><img src="/../pic/v2-1d7c6fbb280186af605752ccd4ab85fd_720w.webp" alt="v2-1d7c6fbb280186af605752ccd4ab85fd_720w"></p>
+<ul>
+<li>构造函数可以有很多个，可以重载。<strong>但是上面的1、2两个构造函数冲突了，右面的调用方式对两个构造函数都适用，冲突。</strong></li>
+<li>同名的函数可以有多个，编译器会将其编成不同的名称，实际调用谁，是看谁更匹配（比如传入的参数类型、个数等等）。</li>
+</ul>
+<p><img src="/../pic/v2-189cbca0760054ab7c64ec116ae7cdab_720w.webp" alt="v2-189cbca0760054ab7c64ec116ae7cdab_720w"></p>
+<ul>
+<li>通常构造函数不要放在private中，这样外界没法调用，也就无法创建对象。</li>
+<li>在设计模式Singleton（单体）中，将构造函数放在了private中。这个class只有一份，<strong>外界想要调用的时候，只能使用定义的getinstance函数来取得这一份；外界无法创建新的对象。</strong></li>
+</ul>
+<h1 id="3-参数传递与返回值"><a href="#3-参数传递与返回值" class="headerlink" title="3. 参数传递与返回值"></a>3. 参数传递与返回值</h1><p><img src="/../pic/v2-04689d16777e245459c930b3b591fa16_720w.webp" alt="v2-04689d16777e245459c930b3b591fa16_720w"></p>
+<ul>
+<li>定义成员函数的时候，函数名后面➕const（const是属于函数签名的一部分），<strong>对于不会改变数据内容的函数，一定要加上const。</strong></li>
+<li>对于上面右侧调用方式，我们创建一个常量复数然后输出实部虚部，<strong>如果上面real和img函数定义的时候，没有加const，那么这里函数默认的意思是可能会改变数据，与我们的常量复数就矛盾了。</strong>编译器会报错。因此，对于不会改变数据内容的函数，一定一定要加const！</li>
+</ul>
+<p><img src="/../pic/v2-5b2d2e25925a9957977d3f17bbef923e_720w.webp" alt="v2-5b2d2e25925a9957977d3f17bbef923e_720w"></p>
+<ul>
+<li>参数传递，传递value是把整个参数全传过去，double类型的数据占4字节。尽量不要直接value传递。</li>
+<li>尽可能传递引用reference，传引用相当于传指针，很快，形式又很漂亮。</li>
+<li>传引用过去，修改之后，都会改变；如果只是为了提升速度，不向改变数据，那么传const引用。这样传进去的东西，<strong>不能被修改。</strong></li>
+</ul>
+<p><img src="/../pic/v2-afa8298ffe449f6b6eb5799d5d70eba7_720w.webp" alt="v2-afa8298ffe449f6b6eb5799d5d70eba7_720w"></p>
+<ul>
+<li><p>返回值的传递，也尽量返回引用。但是，如果返回的是local变量（局部变量），就不能”return by reference”。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下面是一种错误的写法</span></span><br><span class="line"><span class="function"><span class="type">int</span>&amp; <span class="title">add</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; a, <span class="type">const</span> <span class="type">int</span>&amp; b)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> sum = a + b;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// sum是一个局部变量，其&quot;生命&quot;在函数结束时就结束了，会被销毁。而return by reference，无法返回一个被销毁的对象的地址</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>1中操作符重载的声明中，没有写参数名，也可以写上。c++中，声明函数的时候，可以不写参数名，实现的时候必须写</p>
+</li>
+</ul>
+<p><img src="/../pic/v2-f2163159d693dbd129796b21452274c2_720w.webp" alt="v2-f2163159d693dbd129796b21452274c2_720w"></p>
+<ul>
+<li>友元：friend，修饰在函数定义之前，<strong>表示这个函数可以直接拿该类对象的private数据。</strong></li>
+<li>如上面所示，声明为friend之后，函数可以直接取到re和im，如果不被声明为friend，<strong>只能通过调用real和imag函数来得到，效率较低。</strong></li>
+</ul>
+<p><strong>友元函数</strong></p>
+<p> 在C++中，我们使用类对数据进行了隐藏和封装，类的数据成员一般都定义为私有成员，成员函数一般都定义为公有的，以此提供类与外界的通讯接口。但是，有时需要定义一些函数，这些函数不是类的一部分，但又需要频繁地访问类的数据成员，这时可以将这些函数定义为该函数的友元函数。除了友元函数外，还有友元类，两者统称为友元。友元的作用是提高了程序的运行效率（即减少了类型检查和安全性检查等都需要时间开销），但它破坏了类的封装性和隐藏性，使得非成员函数可以访问类的私有成员。 </p>
+<p>友元的使用场景包括但不限于以下情况：</p>
+<ul>
+<li>当两个或多个类需要共享私有数据时，可以使用类友元来实现数据的直接访问，而无需通过公有接口。</li>
+<li>当某个类需要提供特定函数或操作给其他类使用，但这些函数需要访问类的私有成员时，可以使用函数友元。</li>
+<li>在重载运算符或实现某些特定功能时，友元可以提供对类私有成员的直接访问。</li>
+<li>需要注意的是，友元机制破坏了封装性，因为其他类或函数可以直接访问被授予友元权限的类的私有成员。因此，应谨慎使用友元，只在必要的情况下使用，并且仅将其授予最少的访问权限。</li>
+</ul>
+<p><img src="/../pic/v2-8dac6020b771ed167a0d54a2bb99a460_720w.webp" alt="v2-8dac6020b771ed167a0d54a2bb99a460_720w"></p>
+<ul>
+<li>相同class的不同对象objects互为友元，即可以直接拿到另一个object的data。</li>
+</ul>
+<h1 id="4-操作符重载、临时对象"><a href="#4-操作符重载、临时对象" class="headerlink" title="4. 操作符重载、临时对象"></a>4. 操作符重载、临时对象</h1><p><img src="/../pic/v2-a66118c315b9f0985af1a24e3c2ebfa4_720w.webp" alt="v2-a66118c315b9f0985af1a24e3c2ebfa4_720w"></p>
+<ul>
+<li>第一种方式，写成成员函数。<strong>所有的成员函数都带有一个隐藏的参数this（是一个指针），this表示（指向）调用这个函数的调用者。</strong></li>
+<li>定义函数的时候，<strong>在参数列中不能写出来this</strong>，直接用即可。</li>
+</ul>
+<p><img src="/../pic/v2-1bee06b2e0d2c98b332cb9d08e994dba_720w.webp" alt="v2-1bee06b2e0d2c98b332cb9d08e994dba_720w"></p>
+<ul>
+<li>传递者无需知道接受者是否是以引用形式接受。</li>
+<li>这里面虽然返回值需要的是引用，但是代码中写的返回值可以是value。</li>
+<li>+&#x3D;操作符中，定义的参数是引用，但是传进去的c1也可以是value。</li>
+<li>接收端使用什么形式接收与传递者无关。</li>
+<li>上面的操作符，进行操作之后，c2改变了，返回了c2的引用。因此感觉上，将操作符写为void函数也可以，<strong>但实际上，为了可以兼容c3+&#x3D;c2+&#x3D;c1的形式，写成返回引用更好</strong></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> complex&amp; __doapl(complex* ths, <span class="type">const</span> complex&amp; r)&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> *ths;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 返回值为 void 类型</span></span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> complex::<span class="keyword">operator</span> += (<span class="type">const</span> complex&amp; r)&#123;</span><br><span class="line">    <span class="keyword">return</span> __doapl(<span class="keyword">this</span>,r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/../pic/v2-661e7224f3d144ba67397ba104c26a2a_720w.webp" alt="v2-661e7224f3d144ba67397ba104c26a2a_720w"></p>
+<ul>
+<li>非成员函数的操作符重载。（没有this）</li>
+<li>应对客户的三种方法，写出三种方式，使用时进行重载。</li>
+<li>非成员函数是global函数（全局函数）。</li>
+<li>这些函数不能返回引用，因为返回的值是一个local 对象，这个对象的生命随着函数的结束而结束，被分配的内存的资源都会被销毁、回收。</li>
+<li>classname加上()，创建一个classname类型的临时对象。</li>
+</ul>
+<p> <img src="/../pic/v2-c53944ffbe2ce27a3f1cbe4378aac69a_720w.webp" alt="v2-c53944ffbe2ce27a3f1cbe4378aac69a_720w"></p>
+<p><img src="/../pic/v2-9f7d4eee629ed65d918b0293c76e7004_720w.webp" alt="v2-9f7d4eee629ed65d918b0293c76e7004_720w"></p>
+<p><img src="/../pic/v2-5271b88974c631094a9c10fc76c186c5_720w.webp" alt="v2-5271b88974c631094a9c10fc76c186c5_720w"></p>
+<ul>
+<li>cout不认识新定义的这种复数，因此也需要对&lt;&lt;进行操作符重载。</li>
+</ul>
+<h1 id="5-三大函数：拷贝构造、拷贝赋值、析构函数"><a href="#5-三大函数：拷贝构造、拷贝赋值、析构函数" class="headerlink" title="5. 三大函数：拷贝构造、拷贝赋值、析构函数"></a>5. 三大函数：拷贝构造、拷贝赋值、析构函数</h1><p> 下面我们学习另一种类，带指针的类，string.h的实现。 </p>
+<p><img src="/../pic/v2-0d630be027a0f0e105c90276d80e3d6e_720w.webp" alt="v2-0d630be027a0f0e105c90276d80e3d6e_720w"></p>
+<ul>
+<li>同样进行防卫式的声明。</li>
+<li>string s3(s1)就是拷贝构造，s3&#x3D;s2是拷贝赋值。</li>
+<li>不写的话，会使用编译器默认的拷贝构造赋值（一个bit一个bit的复制）。针对带有指针的，编译器默认的只是拷贝了指针，而不是指针指向的数据。<strong>因此，如果类中有指针，需要重写这两个函数。</strong></li>
+</ul>
+<p><img src="/../pic/v2-e22465dd7a27b7087e9c819e86b12586_720w.webp" alt="v2-e22465dd7a27b7087e9c819e86b12586_720w"></p>
+<ul>
+<li>因为字符串的长度未知，不能直接设定一个xx长度的数组，这样会导致内存浪费。</li>
+<li><strong>因此数据应该是一个指向字符的指针，给出字符串之后，可以动态的调整占用内存。</strong></li>
+<li>第二行是拷贝构造函数（因此参数类型就是String）。</li>
+<li>~String()是析构函数。这个类对象死亡的时候，会自动调用。</li>
+</ul>
+<p><img src="/../pic/v2-5ede56c5f4a1c17044bc10af1d7b6e9e_720w.webp" alt="v2-5ede56c5f4a1c17044bc10af1d7b6e9e_720w"></p>
+<ul>
+<li>字符串是一个指针，最后有结束符号\0。</li>
+<li>如果传入的是0，说明是空字符串，则只有一个结束符号。</li>
+<li><strong>析构函数，释放指针指向的内存。</strong></li>
+</ul>
+<p> **类中有指针，必须写拷贝构造和拷贝赋值，不然会内存泄漏。 ** <strong><span style="color:red">深拷贝和浅拷贝问题</span></strong></p>
+<p><img src="/../pic/v2-36c07a88ca8045973b80e40a4379786a_720w.webp" alt="v2-36c07a88ca8045973b80e40a4379786a_720w"></p>
+<ul>
+<li>默认是浅拷贝</li>
+</ul>
+<p>数据分为基本数据类型(String, Number, Boolean, Null, Undefined，Symbol)和对象数据类型。</p>
+<p>基本数据类型的特点：直接存储在栈(stack)中的数据<br>引用数据类型的特点：存储的是该对象在栈中引用，真实的数据存放在堆内存里</p>
+<p>引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。</p>
+<p><img src="/../pic/c0205389f9444a15be5aec3998e22345.png" alt="c0205389f9444a15be5aec3998e22345"></p>
+<p> **深拷贝和浅拷贝是只针对Object和Array这样的引用数据类型 **</p>
+<p><img src="/../pic/a3a8ca2161ab4a37877d8ae0381be042.png" alt="a3a8ca2161ab4a37877d8ae0381be042"></p>
+<p><strong><span style="color:green"> 浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存。但深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。 </span></strong></p>
+<p>浅拷贝、深拷贝和赋值是在对象复制或赋值操作中常用的概念。它们之间的区别如下：</p>
+<ol>
+<li><p>浅拷贝（Shallow Copy）：浅拷贝是指将一个对象的值复制到另一个对象，但是它们共享相同的内存空间。这意味着当一个对象的数据发生改变时，另一个对象也会随之改变。浅拷贝通常只复制对象的表面层次，而不复制对象内部的指针或资源，因此可能会导致浅拷贝源对象和目标对象之间相互影响。</p>
+</li>
+<li><p>深拷贝（Deep Copy）：深拷贝是指将一个对象的值和资源复制到另一个对象，每个对象都有自己独立的内存空间。这意味着当一个对象的数据发生改变时，另一个对象不会受到影响。深拷贝会递归地复制对象的所有数据成员，包括指针指向的内存资源，以确保对象之间的独立性。</p>
+</li>
+<li><p>赋值（Assignment）：赋值是指将一个对象的值或资源复制给另一个已经存在的对象。赋值操作通常使用赋值运算符（<code>=</code>）来完成。赋值操作只复制对象的值，而不会创建新的对象或分配新的内存空间。如果对象包含动态分配的资源，赋值操作可能会导致资源泄漏或重复释放的问题。</p>
+</li>
+</ol>
+<p>简而言之，浅拷贝和深拷贝都是创建一个对象的副本，但是它们在复制的方式上有所不同。浅拷贝只复制表面层次的数据而共享内存，而深拷贝复制了所有的数据和资源，每个对象都有独立的内存空间。赋值操作只是将一个对象的值复制给另一个对象，并不涉及到对象的创建或内存分配。所以根据具体的需求，我们需要选择适当的复制方式来保证对象复制或赋值的正确性和完整性。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyArray</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> size;</span><br><span class="line">    <span class="type">int</span>* data;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">MyArray</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        size = n;</span><br><span class="line">        data = <span class="keyword">new</span> <span class="type">int</span>[size];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; ++i) &#123;</span><br><span class="line">            data[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 拷贝构造函数 - 浅拷贝</span></span><br><span class="line">    <span class="built_in">MyArray</span>(<span class="type">const</span> MyArray&amp; other) &#123;</span><br><span class="line">        size = other.size;</span><br><span class="line">        data = other.data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 拷贝构造函数 - 深拷贝</span></span><br><span class="line">    <span class="function">MyArray <span class="title">DeepCopy</span><span class="params">(<span class="type">const</span> MyArray&amp; other)</span> </span>&#123;</span><br><span class="line">        size = other.size;</span><br><span class="line">        data = <span class="keyword">new</span> <span class="type">int</span>[size];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; ++i) &#123;</span><br><span class="line">            data[i] = other.data[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 赋值运算符重载</span></span><br><span class="line">    MyArray&amp; <span class="keyword">operator</span>=(<span class="type">const</span> MyArray&amp; other) &#123;</span><br><span class="line">        <span class="comment">// 检查自我赋值</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == &amp;other) &#123;</span><br><span class="line">            <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 释放原有的资源</span></span><br><span class="line">        <span class="keyword">delete</span>[] data;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 复制数据</span></span><br><span class="line">        size = other.size;</span><br><span class="line">        data = <span class="keyword">new</span> <span class="type">int</span>[size];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; ++i) &#123;</span><br><span class="line">            data[i] = other.data[i];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">MyArray</span>() &#123;</span><br><span class="line">        <span class="keyword">delete</span>[] data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">PrintData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; ++i) &#123;</span><br><span class="line">            std::cout &lt;&lt; data[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">MyArray <span class="title">arr1</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">    MyArray arr2 = arr1; <span class="comment">// 浅拷贝</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改 arr2 中的数据</span></span><br><span class="line">    arr2.data[<span class="number">0</span>] = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    arr1.<span class="built_in">PrintData</span>(); <span class="comment">// arr1 受到了影响</span></span><br><span class="line"></span><br><span class="line">    <span class="function">MyArray <span class="title">arr3</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">    arr3.<span class="built_in">DeepCopy</span>(arr1); <span class="comment">// 深拷贝</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改 arr3 中的数据</span></span><br><span class="line">    arr3.data[<span class="number">0</span>] = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">    arr1.<span class="built_in">PrintData</span>(); <span class="comment">// arr1 不受影响</span></span><br><span class="line"></span><br><span class="line">    <span class="function">MyArray <span class="title">arr4</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">    arr4 = arr1; <span class="comment">// 赋值操作</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改 arr4 中的数据</span></span><br><span class="line">    arr4.data[<span class="number">0</span>] = <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line">    arr1.<span class="built_in">PrintData</span>(); <span class="comment">// arr1 不受影响</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述示例中，我们定义了一个 <code>MyArray</code> 类，其成员变量包括一个整数 <code>size</code> 和一个指向动态分配内存的整型指针 <code>data</code>。在构造函数中，我们初始化了 <code>data</code> 数组，并为每个元素赋值为其索引。</p>
+<p>然后，我们进行了以下操作：</p>
+<ul>
+<li>使用拷贝构造函数进行浅拷贝，创建了一个新的对象 <code>arr2</code>。修改 <code>arr2</code> 中的数据后，原始对象 <code>arr1</code> 也受到影响。</li>
+<li>使用自定义的深拷贝函数 <code>DeepCopy</code> 进行深拷贝，创建了一个新的对象 <code>arr3</code>。修改 <code>arr3</code> 中的数据不会影响原始对象 <code>arr1</code>。</li>
+<li>通过赋值运算符重载 <code>operator=</code> 进行赋值操作，将 <code>arr1</code> 的值复制给 <code>arr4</code>。修改 <code>arr4</code> 中的数据不会影响原始对象 <code>arr1</code>。</li>
+</ul>
+<p>通过上述例子，除了赋值操作之外，浅拷贝是将对象的值和指针复制给新的对象，而深拷贝是创建一个新的对象并复制所有的数据和资源。赋值操作只是将一个对象的值复制给另一个已存在的对象，并不涉及对象的创建或资源的复制。</p>
+<p><img src="/../pic/v2-20fb2d9bc10c8795c5ac0072b2b2945f_720w.webp" alt="v2-20fb2d9bc10c8795c5ac0072b2b2945f_720w"></p>
+<ul>
+<li>我们需要的是深拷贝。</li>
+<li>拷贝另一个string指针指向的字符串内容。</li>
+</ul>
+<p><img src="/../pic/v2-d1a9db088e73d91cce09f04a16af46e6_720w.webp" alt="v2-d1a9db088e73d91cce09f04a16af46e6_720w"></p>
+<ul>
+<li>拷贝赋值，两边目前都有东西。</li>
+<li>先检测是不是自我赋值，需要判断一下。</li>
+<li><strong>然后先把数据清空，然后新建指定大小的数组。然后把字符串内容复制过来。</strong></li>
+</ul>
+<p><img src="/../pic/v2-7f4fbe8eb1f3c7961b946d9a05c626d6_720w.webp" alt="v2-7f4fbe8eb1f3c7961b946d9a05c626d6_720w"></p>
+<h1 id="6-堆、栈与内存管理"><a href="#6-堆、栈与内存管理" class="headerlink" title="6. 堆、栈与内存管理"></a>6. 堆、栈与内存管理</h1><p><img src="/../pic/v2-50763f2443697a15d97eb2491251632e_720w.webp" alt="v2-50763f2443697a15d97eb2491251632e_720w"></p>
+<ul>
+<li>栈是存在于某作用域的一块内存空间，一般用于存放局部变量。</li>
+<li>堆是由操作系统提供的一块全局内存空间，用new来动态取得。<strong>在栈中的，作用域结束，则释放了；在堆中的，需要手动释放。</strong></li>
+</ul>
+<p><img src="/../pic/v2-c24a165de2cfe05e50225f05ead4089a_720w.webp" alt="v2-c24a165de2cfe05e50225f05ead4089a_720w"></p>
+<ul>
+<li>结束之后，会自动调用析构函数。</li>
+</ul>
+<p> <img src="/../pic/v2-15884532c6ed3656cf8afb2495df01a1_720w.webp" alt="v2-15884532c6ed3656cf8afb2495df01a1_720w"></p>
+<ul>
+<li>加上static之后，会存在到整个程序结束。程序结束之后才会调用析构函数。</li>
+</ul>
+<p><img src="/../pic/v2-b43a773ab4146b697471a01f6bf47d1e_720w.webp" alt="v2-b43a773ab4146b697471a01f6bf47d1e_720w"></p>
+<p><img src="/../pic/v2-98652a0f7ca3494d0fda72fbbe76ec57_720w.webp" alt="v2-98652a0f7ca3494d0fda72fbbe76ec57_720w"></p>
+<p><strong><span style="color:red">new的内部操作</span></strong></p>
+<p><img src="/../pic/v2-d778dfa4597c14540114f4eb4611d952_720w.webp" alt="v2-d778dfa4597c14540114f4eb4611d952_720w"></p>
+<ul>
+<li>先分配了内存，将指针转型，通过指针调用构造函数。</li>
+<li>内部使用malloc分配内存。</li>
+</ul>
+<p><strong><span style="color:red">delete的内部操作</span></strong></p>
+<p><img src="/../pic/v2-6456a637c4a2135881e60d81710b0dd4_720w.webp" alt="v2-6456a637c4a2135881e60d81710b0dd4_720w"></p>
+<ul>
+<li>先调用析构函数，再释放内存。</li>
+<li>内部使用free来释放。</li>
+</ul>
+<p><img src="/../pic/v2-1a67ed2f4703be7542c15d46df7728f4_720w.webp" alt="v2-1a67ed2f4703be7542c15d46df7728f4_720w"></p>
+<ul>
+<li><p><strong>Vc调试模式下，前后都带着灰色的内存部分</strong>（上面32，下面4），还有头尾的cookie（每个cookie4字节）。分配的内存都是16的倍数，因此填充到64字节。</p>
+</li>
+<li><p>执行模式下，没有灰色的，则占用16字节。</p>
+</li>
+<li><p>cookie表示使用了多少字节，每一位是4位bit，因为内存必须是16的倍数，因此最后四位bit一定都是0，借用最后的一位1表示占用内存，0表示释放内存。</p>
+<p><img src="/../pic/v2-f3345c131fb9e75fedd9bc7e104284ea_720w.webp" alt="v2-f3345c131fb9e75fedd9bc7e104284ea_720w"></p>
+</li>
+<li><p>左边的，最后加的4字节，保存数组的长度。</p>
+</li>
+<li><p>右边的同理</p>
+</li>
+</ul>
+<p><img src="/../pic/v2-c5869c01e5dbfaa273bc3905a26bec5f_720w.webp" alt="v2-c5869c01e5dbfaa273bc3905a26bec5f_720w"></p>
+<ul>
+<li><strong>array new一定要搭配array delete，否则会内存泄漏。因为普通的delete只调用一次析构函数。内存泄漏会发生在剩下两个，因为剩下两个没有调用析构函数。</strong></li>
+<li>这种情况主要发生在有指针的类，因为如果没有指针的类（比如之前的复数），没有动态分配内存new，因此也就不需要调用自己写的析构函数来杀掉。</li>
+</ul>
+<h1 id="7-类模板、函数模板以及补充"><a href="#7-类模板、函数模板以及补充" class="headerlink" title="7. 类模板、函数模板以及补充"></a>7. 类模板、函数模板以及补充</h1><h3 id="7-1-static"><a href="#7-1-static" class="headerlink" title="7.1 static"></a>7.1 static</h3><p><img src="/../pic/v2-22c3270573cb2e2e048814e807a42b5f_720w.webp" alt="v2-22c3270573cb2e2e048814e807a42b5f_720w"></p>
+<ul>
+<li>在数据或函数前加static关键字，则变为静态函数&#x2F;数据。</li>
+<li>一个成员函数要处理很多个数据，需要靠某个东西告诉他处理谁，就是this pointer。来告诉他处理从c1、c2、c3。<strong>成员函数有一个隐藏的this pointer参数。</strong></li>
+<li>加上static之后，<strong>这个数据&#x2F;函数就不属于这个对象了</strong>，跟这个对象脱离。因此，静态函数只能类内声明，类外定义</li>
+<li><strong>静态函数没有this pointer参数，因此不能直接处理普通的对象，只能处理静态数据。</strong></li>
+</ul>
+<p><img src="/../pic/v2-77d339ab83286f9acfb453f79fb8fa2f_720w.webp" alt="v2-77d339ab83286f9acfb453f79fb8fa2f_720w"></p>
+<ul>
+<li>这个例子中，利率m_rate是静态数据，set_rate是静态函数。</li>
+<li>静态函数set_rate只能处理静态数据。</li>
+<li>静态函数可以通过对象object来调用，也可以通过class name来调用。</li>
+</ul>
+<p><img src="/../pic/v2-2578b086aaaddf29ab5f868007f3ebdb_720w.webp" alt="v2-2578b086aaaddf29ab5f868007f3ebdb_720w"></p>
+<ul>
+<li>构造函数放在private中，不想让外界创建。</li>
+<li>设计一个静态函数，来返回唯一的那一份，这个静态函数是外界取得这一份的唯一方法。</li>
+<li>调用这个静态函数之后，才开始创建这唯一的一份</li>
+</ul>
+<h3 id="7-2-cout"><a href="#7-2-cout" class="headerlink" title="7.2 cout"></a>7.2 cout</h3><p><img src="/../pic/v2-c683c87e3023d98ad2906e543e80c0d3_720w.webp" alt="v2-c683c87e3023d98ad2906e543e80c0d3_720w"></p>
+<ul>
+<li>cout是一种ostream。</li>
+<li>设计了很多种&lt;&lt;的操作符重载</li>
+</ul>
+<h3 id="7-3-模板"><a href="#7-3-模板" class="headerlink" title="7.3 模板"></a>7.3 模板</h3><p><img src="/../pic/v2-c3547ff9bb2300cb759fcfd0066a8aa6_720w.webp" alt="v2-c3547ff9bb2300cb759fcfd0066a8aa6_720w"></p>
+<ul>
+<li>使用T来代替某种类型，类模板。</li>
+<li>使用的时候，&lt;&gt;中写明类型，编译器就会把T全部替换为这种类型。</li>
+</ul>
+<p><img src="/../pic/v2-7ace3908d51c5ff9bcdc95c0cadc2a0f_720w.webp" alt="v2-7ace3908d51c5ff9bcdc95c0cadc2a0f_720w"></p>
+<ul>
+<li>函数模板。</li>
+<li>这里面的min，比较的类型用T来表示。</li>
+<li>这样比较的时候，**&lt;<strong>符号就会使用T类型中重载的</strong>&lt;**符号来进行。</li>
+<li><strong>用的时候不需要用&lt;&gt;绑定类型，编译器会根据传进去的对象类型自动绑定T类型。</strong></li>
+</ul>
+<h3 id="7-4-namespace"><a href="#7-4-namespace" class="headerlink" title="7.4 namespace"></a>7.4 namespace</h3><p><img src="/../pic/v2-9580fc2d000a9bc127d29e79c452551a_720w.webp" alt="v2-9580fc2d000a9bc127d29e79c452551a_720w"></p>
+<h1 id="8-组合与继承"><a href="#8-组合与继承" class="headerlink" title="8. 组合与继承"></a>8. 组合与继承</h1><h3 id="8-1-复合"><a href="#8-1-复合" class="headerlink" title="8.1 复合"></a>8.1 复合</h3><ul>
+<li><span style="color:red"><strong>类A的成员数据中 含有B类的对象b，因此，类A可以通过b调用B类中的成员函数</strong></span></li>
+</ul>
+<p><img src="/../pic/v2-c9099845e52672e4bb6e2b728052437d_720w.webp" alt="v2-c9099845e52672e4bb6e2b728052437d_720w"></p>
+<ul>
+<li>表示这个class queue中，有一个这种sequence类东西。</li>
+<li>这个sequence是deque<T></li>
+<li>queue里面所有的功能，都是调用c的功能来完成的</li>
+</ul>
+<p><img src="/../pic/v2-0642ccaa0a61a26d9211b38d683385fc_720w.webp" alt="v2-0642ccaa0a61a26d9211b38d683385fc_720w"></p>
+<ul>
+<li>queue中有deque，deque的源代码中，还有另一个复合，Itr<T>。</li>
+<li>从内存的角度看，queue占用40字节。</li>
+</ul>
+<p><img src="/../pic/v2-148a664e790c5f55e4a01726773e8d9a_720w.webp" alt="v2-148a664e790c5f55e4a01726773e8d9a_720w"></p>
+<ul>
+<li>左边拥有右边。</li>
+<li><strong>复合情况下的构造函数，由内而外，析构函数，由外而内。</strong>代码中红色的部分，是编译器来完成的。<strong>编译器会调用内部的默认的构造函数或析构函数。</strong>如果不希望调用默认的，那么就需要自己写代码。</li>
+</ul>
+<h3 id="8-2-委托"><a href="#8-2-委托" class="headerlink" title="8.2 委托"></a>8.2 委托</h3><p><img src="/../pic/v2-f0f1a9db07962760a8cd9f74a42827ea_720w.webp" alt="v2-f0f1a9db07962760a8cd9f74a42827ea_720w"></p>
+<ul>
+<li>引用方式的复合，<strong>即左边has a右边类的指针。</strong></li>
+<li>即可以通过该指针，把任务委托给右边的类。</li>
+<li>复合中，内部和外部是一起出现的，即调用二者的构造函数；而委托的话，因为是指针，是不同步的，当需要右边的时候，才创建这个。</li>
+<li>应用实例：右面的类为具体的实现，左边只是调用的接口。</li>
+</ul>
+<h3 id="8-3-继承"><a href="#8-3-继承" class="headerlink" title="8.3 继承"></a>8.3 继承</h3><p><img src="/../pic/v2-a54886febd308d561151181f461052df_720w.webp" alt="v2-a54886febd308d561151181f461052df_720w"></p>
+<ul>
+<li>黄色的一行为使用public继承的语法，表示继承_List_node_base类。</li>
+<li>继承，表示is-a，是一种。</li>
+<li>父类的数据会被完整继承下来。</li>
+<li>子类拥有自己的以及父类的数据。</li>
+</ul>
+<p><img src="/../pic/v2-a2211ce8c293dd66965570f277ffd08f_720w.webp" alt="v2-a2211ce8c293dd66965570f277ffd08f_720w"></p>
+<ul>
+<li>子类的对象中有父类的成分。</li>
+<li>构造时，先调用父类的构造函数，然后再调用自己的。</li>
+<li>析构时，先析构自己，然后析构父类的。</li>
+<li>编译器会自动完成。</li>
+</ul>
+<h1 id="9-虚函数与多态"><a href="#9-虚函数与多态" class="headerlink" title="9. 虚函数与多态"></a>9. 虚函数与多态</h1><p><img src="/../pic/v2-e043ac7128b4ec8a457f20fa5dda5e5b_720w.webp" alt="v2-e043ac7128b4ec8a457f20fa5dda5e5b_720w"></p>
+<ul>
+<li>搭配虚函数来完成继承。</li>
+<li>在任何成员函数之前加上virtual关键字，即为虚函数。</li>
+<li>子类可以调用父类的函数，即继承了函数（实际上是继承了函数的调用权）。</li>
+<li><strong>非虚函数，是不希望子类重新定义（override）的函数。</strong></li>
+<li>虚函数，希望子类重新定义它，且已有默认定义。</li>
+<li>纯虚函数，希望子类重新定义它，且目前没有默认定义，一定要去定义。<strong>即函数定义后面直接&#x3D;0。</strong></li>
+<li>上图中，定义了一个父类shape，<strong>其中定义了几种成员函数。objectID是非虚函数，不需要重新定义。error是虚函数，有默认定义，可以重新定义。draw函数是纯虚函数，没有默认定义，必须要子类来重新定义</strong></li>
+</ul>
+<p><img src="/../pic/v2-823877eeda7418459424b6b23ae5a542_720w.webp" alt="v2-823877eeda7418459424b6b23ae5a542_720w"></p>
+<ul>
+<li>父类中其他可以通用，读文件这个函数Serialize设置为虚函数，需要override。</li>
+<li>我们定义一个读文档的类，那么serialize函数就要override成读文档的函数。</li>
+<li><strong>调用serialize时，通过隐藏的this pointer来调用，因为myDoc.OnFileOpen，因此this就是myDoc，因此调用的是我们override之后的serialize函数。</strong></li>
+<li>这就是设计模式，template method</li>
+</ul>
+<p> <img src="/../pic/v2-31a9a990b796ac4b32ce60aa30d7b058_720w.webp" alt="v2-31a9a990b796ac4b32ce60aa30d7b058_720w"></p>
+<p><strong>继承和复合关系下的构造和析构：</strong></p>
+<p><img src="/../pic/v2-d965ceb43cd1c75f9c8e728c5bba0865_720w.webp" alt="v2-d965ceb43cd1c75f9c8e728c5bba0865_720w"></p>
+<ul>
+<li>继承+复合。</li>
+<li>构造函数，首先调用父类的构造函数，然后调用复合的构造函数，然后调用自己的构造函数。</li>
+<li>析构函数相反。</li>
+</ul>
+<h3 id="9-1-委托-＋-继承"><a href="#9-1-委托-＋-继承" class="headerlink" title="9.1 委托 ＋ 继承"></a>9.1 委托 ＋ 继承</h3><p><img src="/../pic/v2-0bf06a192e77e6e63638fe6a7b3fc584_720w.webp" alt="v2-0bf06a192e77e6e63638fe6a7b3fc584_720w"></p>
+<ul>
+<li>observer用来观察subject的数据。一个subject数据可以有多个observer来观察。observer是一个父类，可以定义子类来继承，因此可以有不同的观察方法。</li>
+<li>当数据改变的时候，observer也需要更新，即notify函数，来将目前所有的observer更新。</li>
+</ul>
+<p><img src="/../pic/v2-a080f9b824991d70ce336423aa0258c7_720w.webp" alt="v2-a080f9b824991d70ce336423aa0258c7_720w"></p>
+<p><strong>设计要求：设计一个文件夹对象（Composite），要求这个文件夹即可以存放文件（Primitive），又可以存放文件夹</strong></p>
+<ul>
+<li>思路：设计一个父类，让文件和文件夹都继承这个父类，父类中声明一个virtual函数add()。然后在文件夹类中实现这个add()函数，传入的参数是父类指针（动态绑定），这样就可以实现既可以存放文件，又能存放文件夹的功能！</li>
+</ul>
+<p><img src="/../pic/v2-374c166bce345556cf6ac943f0fe3ff1_720w.webp" alt="v2-374c166bce345556cf6ac943f0fe3ff1_720w"></p>
+<ul>
+<li>设计一种类似窗口的类，窗口中可以有其他窗口，窗口中有其他类对象。</li>
+<li>primitive是对象个体，composite是一种窗口容器，特殊点在于放的可能是其他对象，也可能是窗口。</li>
+<li><strong>因此把primitive和composite都继承自component，然后composite容器存放的是指向component对象的指针即可。这样composite中存放的可能是窗口，也可能是对象。</strong></li>
+<li>这就是设计模式：composite。</li>
+<li>component中add是虚函数，不能是纯虚函数，因为primitive无法override add函数。composite需要override add函数，使得容器可以存放窗口，也可以存放对象</li>
+</ul>
+<p><img src="/../pic/v2-1597863ee9b738e874a7638cd3d7532e_720w.webp" alt="v2-1597863ee9b738e874a7638cd3d7532e_720w"></p>
+<ul>
+<li>想要创建未来才会出现的子类（下面是派生的子类）。</li>
+<li>子类中，安排一个静态对象（_LAST）,然后把它放到父类之前开辟出的一个空间中，这样父类就可以看到新创建的子类。</li>
+<li>这个静态对象创建的时候，调用自己私有的构造函数，调用addPrototype，这样就把自己放到了父类中。</li>
+<li>子类中，还需要准备一个clone函数。这样父类就可以通过调用clone方法来创建这种子类的副本。</li>
+<li>要注意，子类有两个构造函数，他们的作用是不一样的。</li>
+</ul>
+<p><img src="/../pic/1698569124532.png" alt="1698569124532"></p>
+<p><img src="/../pic/1698571582183.png" alt="1698571582183"></p>
+<h1 id="10-转换函数"><a href="#10-转换函数" class="headerlink" title="10. 转换函数"></a>10. 转换函数</h1><p><img src="/../pic/v2-d6064fcbcaa6896e61e10393ca75bd75_720w.webp" alt="v2-d6064fcbcaa6896e61e10393ca75bd75_720w"></p>
+<ul>
+<li>转换函数，对象的类型之间进行转换。</li>
+<li>黄色部分即为转换函数，<strong>要以operator开头，函数名称为需要转成的类型，不可以有参数。前面不需要写返回类型，因为c++会自动返回函数名称这个类型。</strong></li>
+<li>转换函数通常后面有const，即不需要改变数据则要加const。</li>
+<li>写好之后，在将Fraction对象转成double的时候，会调用我们写好的转换函数。</li>
+</ul>
+<h1 id="11-non-explicit-one-argument-ctor"><a href="#11-non-explicit-one-argument-ctor" class="headerlink" title="11. non-explicit-one-argument ctor"></a>11. non-explicit-one-argument ctor</h1><p>one-argument表示只要一个实参就够了。</p>
+<p>non-explicit</p>
+<p><img src="/../pic/v2-9f4dce2b194d66245a1992303f322a50_720w.webp" alt="v2-9f4dce2b194d66245a1992303f322a50_720w"></p>
+<ul>
+<li>这里没有写转换函数，而是重载了+操作符。</li>
+<li>重载之后的+是分数+分数，编译器处理d2 &#x3D; f+4的时候，发现右边不是分数，则看4能否转换成分数。</li>
+<li><strong>因为是只需要一个实参的构造函数，因此构造函数会将4作为唯一实参传入，然后将4转换成Fraction(4,1)，于是可以调用重载之后的+。</strong></li>
+<li>因此non-explicit-one-argument ctor可以把其他类型转换为该类型。</li>
+</ul>
+<p><img src="/../pic/v2-0ba483c1633f5d6fd4e40f22db30df87_720w.webp" alt="v2-0ba483c1633f5d6fd4e40f22db30df87_720w"></p>
+<ul>
+<li>如果这两个并存了，编译器就不知道该调用哪个了。（不知道把分数转为double还是把int转为分数）</li>
+</ul>
+<p><img src="/../pic/v2-6aeda3922a3fd9799a6a0ad66975f4cb_720w.webp" alt="v2-6aeda3922a3fd9799a6a0ad66975f4cb_720w"></p>
+<ul>
+<li><strong>构造函数加上explicit之后，表示这个构造函数只能在构造的时候使用，不会在转换类型时使用了。</strong></li>
+<li>这个explicit关键字主要就出现在这里。</li>
+</ul>
+<h1 id="12-pointer-like-classes"><a href="#12-pointer-like-classes" class="headerlink" title="12. pointer-like classes"></a>12. pointer-like classes</h1><p><strong>行为像指针的类</strong></p>
+<p><img src="/../pic/v2-03b2243e5a685034928459a4c73a046e_720w.webp" alt="v2-03b2243e5a685034928459a4c73a046e_720w"></p>
+<ul>
+<li>设计的class，像指针。智能指针，完成比指针更多的工作。一般都是包着一层普通指针。</li>
+<li>指针允许的动作，这个类也需要允许操作。</li>
+<li><strong><code>*操作符和-&gt;操作符</code>都需要重载</strong>。</li>
+<li>这样调用sp-&gt;的时候，实际上内部重载操作符，将内部的普通指针px返回出来，然后px可以继续使用-&gt;来完成。<strong>相当于这个-&gt;符号用了两次。</strong></li>
+</ul>
+<p><strong>迭代器</strong></p>
+<p><img src="/../pic/v2-ce88ad0d78e5f10e7040b507e0ad04b5_720w.webp" alt="v2-ce88ad0d78e5f10e7040b507e0ad04b5_720w"></p>
+<ul>
+<li>迭代器这种智能指针还需要处理++，–等符号。</li>
+</ul>
+<p><img src="/../pic/v2-554b4f3499eba726dd0087b53875ec7f_720w.webp" alt="v2-554b4f3499eba726dd0087b53875ec7f_720w"></p>
+<ul>
+<li>这里面node用 * 号，则是取得data</li>
+</ul>
+<h1 id="13-function-like-classes"><a href="#13-function-like-classes" class="headerlink" title="13. function-like classes"></a>13. function-like classes</h1><ul>
+<li>设计一个class，行为像一个函数，即仿函数。</li>
+</ul>
+<p><img src="/../pic/v2-9e9f3d5bd33687fc17442a279a78cec1_720w.webp" alt="v2-9e9f3d5bd33687fc17442a279a78cec1_720w"></p>
+<ul>
+<li>即可以使用小括号来调用。</li>
+<li>对小括号（）操作符进行重载。</li>
+</ul>
+<h1 id="14-namespace"><a href="#14-namespace" class="headerlink" title="14.namespace"></a>14.namespace</h1><p><img src="/../pic/v2-e41372b171f884bd1327b7a0dd9d7d7e_720w.webp" alt="v2-e41372b171f884bd1327b7a0dd9d7d7e_720w"></p>
+<ul>
+<li>使用namespace将不同的函数包在里面，这样可以避免混淆。</li>
+</ul>
+<h1 id="15-类模板"><a href="#15-类模板" class="headerlink" title="15.类模板"></a>15.类模板</h1><p><img src="/../pic/v2-aa6ff07cb0046d7f4015b573ed54dbb1_720w.webp" alt="v2-aa6ff07cb0046d7f4015b573ed54dbb1_720w"></p>
+<ul>
+<li>设计class的时候，如果数据的类型可以指定，那么就可以使用类模板。</li>
+</ul>
+<p><strong>函数模板</strong></p>
+<p><img src="/../pic/v2-69b2fb385ad4f8305d00409fded8f38b_720w.webp" alt="v2-69b2fb385ad4f8305d00409fded8f38b_720w"></p>
+<ul>
+<li>与上面的类模板一致，在设计函数的时候，如果传入的参数可以指定，那么就使用模板。</li>
+<li>在函数定义前面，写template<class T ></li>
+<li>或者，template<typename T></li>
+</ul>
+<p> <strong>成员模板</strong></p>
+<p><img src="/../pic/v2-42f8980a8171d87d814544c8aea3e344_720w.webp" alt="v2-42f8980a8171d87d814544c8aea3e344_720w"></p>
+<ul>
+<li>黄色部分是成员模板，它即是模板的一部分（在pair类中），自己又是模板，则称为成员模板。</li>
+</ul>
+<p><img src="/../pic/v2-ebecd039693e116e4b8fac5230336c32_720w.webp" alt="v2-ebecd039693e116e4b8fac5230336c32_720w"></p>
+<ul>
+<li>右上角设计了四种class。</li>
+<li>右下角的最后三行，设计了一个pair的构造函数，可以使用&lt;U1,U2&gt;这种pair对象p作为初值来构造一个pair，将p的first和second作为构造的pair的first和second。</li>
+<li><strong>例子就是，可以使用&lt;鲫鱼，麻雀&gt;对象来构造一个&lt;鱼类，鸟类&gt;的pair。如左下角所示。</strong></li>
+</ul>
+<p><img src="/../pic/v2-eec2df1c2a0f9ab647f6fb5114c3387e_720w.webp" alt="v2-eec2df1c2a0f9ab647f6fb5114c3387e_720w"></p>
+<ul>
+<li>new一个子类，这个指针类型是指向父类，是可以的，叫做up-cast。</li>
+<li>智能指针也必须可以这样。</li>
+</ul>
+<h1 id="16-特化"><a href="#16-特化" class="headerlink" title="16. 特化"></a>16. 特化</h1><p><img src="/../pic/v2-4240948ad14d3673bf52c52aac160d08_720w.webp" alt="v2-4240948ad14d3673bf52c52aac160d08_720w"></p>
+<ul>
+<li>特化是泛化模板的反面。</li>
+<li>在使用模板之后，可以针对不同的类型，来设计不同的东西。</li>
+<li>使用template&lt;&gt;，后面指定类型，比如struct hash<char>进行特定的设计。</li>
+</ul>
+<p><strong>偏特化</strong></p>
+<p><img src="/../pic/v2-2fa131ceea90d1be1388a4fedad9b351_720w.webp" alt="v2-2fa131ceea90d1be1388a4fedad9b351_720w"></p>
+<ul>
+<li>偏特化，即局部特化。</li>
+<li>第一种是个数的偏，比如上面的模板有两个，特化其中一个为bool类型。</li>
+</ul>
+<p><img src="/../pic/v2-9f18c16d22263f40a558b1c7d698b162_720w.webp" alt="v2-9f18c16d22263f40a558b1c7d698b162_720w"></p>
+<ul>
+<li>第二种是范围的偏</li>
+<li>可以把参数的范围缩小，比如上面，如果只要传进来的是指针，就使用下面这种。而指针指向的是什么，不需要考虑。</li>
+</ul>
+<h1 id="17-模板模板参数"><a href="#17-模板模板参数" class="headerlink" title="17. 模板模板参数"></a>17. 模板模板参数</h1><p><strong>模板中的一个模板参数也为模板</strong></p>
+<p><img src="/../pic/v2-3b79153ef053fd28bf47335dd6add584_720w.webp" alt="v2-3b79153ef053fd28bf47335dd6add584_720w"></p>
+<ul>
+<li>在模板的尖括号中&lt;&gt;，typename和class写哪个都行，互通。</li>
+<li>要使用最后一行代码来使用，第一个参数为string，第二个模板参数本身为模板，引入Lst，来作为第二参数。</li>
+</ul>
+<h1 id="18-关于C-标准库"><a href="#18-关于C-标准库" class="headerlink" title="18.关于C++标准库"></a>18.关于C++标准库</h1><p><img src="/../pic/v2-d86a1d5efd1076be70c2c7490f211a90_720w.webp" alt="v2-d86a1d5efd1076be70c2c7490f211a90_720w"></p>
+<ul>
+<li>容器、迭代器、算法。</li>
+</ul>
+<h1 id="19-C-11新特性"><a href="#19-C-11新特性" class="headerlink" title="19.C++11新特性"></a>19.C++11新特性</h1><p> <strong>variadic templates 数量不定的模板参数</strong> </p>
+<p><img src="/../pic/v2-f15d7044aa344febd7e311f539235e6b_720w.webp" alt="v2-f15d7044aa344febd7e311f539235e6b_720w"></p>
+<ul>
+<li>模板的参数可以变化，使用…即可，表示任意个数。</li>
+<li>示例中，将模板参数分为一个和一包参数，后面的一包参数数量任意。</li>
+<li>这个示例中，使用了递归，不断地将一包参数里的每一个print…，直到最后pack中没有参数，就会调用没有参数的print，结束。</li>
+<li>使用sizeof…(args)可以直到现在这个参数包中有多少个参数。</li>
+</ul>
+<p> <strong>auto关键字</strong> </p>
+<p><img src="/../pic/v2-a40f2d23b06b875efadc655e48bafc74_720w.webp" alt="v2-a40f2d23b06b875efadc655e48bafc74_720w"></p>
+<ul>
+<li>编译器自动匹配返回类型。</li>
+</ul>
+<p> <strong>range-base for</strong> </p>
+<p><img src="/../pic/v2-cc7d6bba21b7958ae708c631a88ae396_720w.webp" alt="v2-cc7d6bba21b7958ae708c631a88ae396_720w"></p>
+<ul>
+<li>可以选择pass by value 也可以选择 pass by reference</li>
+</ul>
+<h1 id="20-reference引用"><a href="#20-reference引用" class="headerlink" title="20. reference引用"></a>20. reference引用</h1><p><img src="/../pic/v2-308bc476a1176b69cb35f83ef3c19aba_720w.webp" alt="v2-308bc476a1176b69cb35f83ef3c19aba_720w"></p>
+<ul>
+<li>x是整数，p是指向x的指针，r是x的引用。</li>
+<li>x是整数，占4字节；p是指针，32位机器上占4字节；<strong>r代表x，那么r也是整数，占4字节。</strong></li>
+<li>逻辑上r是这样，但底部的实现也是指针，即r也是指向x的指针。（即使底部是这样，但是引用占用的大小也需要与代表的物体一样，编译器创建出的假象）<strong>引用与指针不同，不可以改变，代表一个变量之后，就不能改变。</strong></li>
+</ul>
+<p><img src="/../pic/v2-413c3c47b4b0e1dfb4526be795f926bd_720w.webp" alt="v2-413c3c47b4b0e1dfb4526be795f926bd_720w"></p>
+<ul>
+<li>这里r和x都是8字节，且地址也相同，实际是假象。</li>
+</ul>
+<p><img src="/../pic/v2-32002cad3d1f04e291fa716ae89b4c55_720w.webp" alt="v2-32002cad3d1f04e291fa716ae89b4c55_720w"></p>
+<ul>
+<li>reference通常用在参数传递上。</li>
+</ul>
+<h1 id="21-vptr-和-vtbl"><a href="#21-vptr-和-vtbl" class="headerlink" title="21. vptr 和 vtbl"></a>21. vptr 和 vtbl</h1><p><img src="/../pic/v2-738a5348c4b9514b07f97bf346994b4e_720w.webp" alt="v2-738a5348c4b9514b07f97bf346994b4e_720w"></p>
+<ul>
+<li>三个类，B继承了A，C继承了B。因此三个类所占的内存如左边所示。</li>
+<li>子类对象中，有父类的成分。</li>
+<li><strong>当类中有虚函数的时候，对象就会多一个指针。（无论多少个虚函数，都是多一个指针，即vptr）</strong>，因此占用的内存，会多一个指针的空间（4字节）。</li>
+<li><strong>继承的时候，会继承父类的函数的调用权。</strong></li>
+<li>vptr只会关联到虚函数上，与一般函数无关。<strong>vptr指向一个表格vtbl，里面是虚函数的位置。</strong></li>
+<li>调用函数则是动态绑定，通过指针p找到vptr，找到vtbl，再找到调用的函数。<code>(*p-&gt;vptr[n])(p)</code>，则调用第n个虚函数。</li>
+</ul>
+<h1 id="22-关于this-pointer"><a href="#22-关于this-pointer" class="headerlink" title="22.关于this pointer"></a>22.关于this pointer</h1><p> <strong>通过对象来调用函数，这个对象的地址即是this pointer</strong> </p>
+<p><img src="/../pic/v2-c1835b425e6aecf4a6e395fea35ca692_720w.webp" alt="v2-c1835b425e6aecf4a6e395fea35ca692_720w"></p>
+<ul>
+<li>父类中其他可以通用，读文件这个函数Serialize设置为虚函数，需要override。</li>
+<li>我们定义一个读文档的类，那么serialize函数就要override成读文档的函数。</li>
+<li><strong>调用serialize时，通过隐藏的this pointer来调用，因为myDoc.OnFileOpen，因此this就是myDoc（这里就是上面说的动态绑定，this指向的serialize，是重写过的虚函数），因此调用的是我们override之后的serialize函数。</strong></li>
+<li>这就是设计模式，template method</li>
+</ul>
+<p><strong>动态绑定</strong>：</p>
+<p>通过对象调用函数，一定是静态绑定；动态绑定一定是通过指针调用函数！</p>
+<p><img src="/../pic/v2-007513202d9a5cf14a218fa8cb695977_720w.webp" alt="v2-007513202d9a5cf14a218fa8cb695977_720w"></p>
+<ul>
+<li>a.vfunc1()这是通过对象来调用（将B转成A类对象），是静态的调用。可以看到右边的汇编代码，调用call来执行（固定地址）。</li>
+</ul>
+<p><img src="/../pic/v2-005e03d9c84fb6d437fc583905d5a9d5_720w.webp" alt="v2-005e03d9c84fb6d437fc583905d5a9d5_720w"></p>
+<ul>
+<li>这里是使用动态绑定调用。</li>
+<li>首先<strong>向上转型，new B的指针是A*，</strong>下面用指针调用函数，是动态的。</li>
+<li><strong>右边的汇编中可以看到，调用函数的时候，call的是dword ptr[edx]，即是vtbl中对应虚函数的位置。</strong></li>
+</ul>
+<h1 id="23-浅谈const"><a href="#23-浅谈const" class="headerlink" title="23.浅谈const"></a>23.浅谈const</h1><p><img src="/../pic/v2-341fdf3a254d9cc36274a64f4ecd5f34_720w.webp" alt="v2-341fdf3a254d9cc36274a64f4ecd5f34_720w"></p>
+<ul>
+<li>const放在成员函数定义小括号的后面，表示修饰这个成员函数。<strong>表示我这个成员函数不准备改变class的data。</strong></li>
+<li><strong>当两个版本同时存在的时候，</strong>const object只能调用const版本，non-const object只能调用non-const版本。</li>
+<li>常量对象是不可以调用非常量函数的，非常量对象可以调用常量函数。</li>
+</ul>
+<h1 id="24-关于new、delete"><a href="#24-关于new、delete" class="headerlink" title="24.关于new、delete"></a>24.关于new、delete</h1><p><img src="/../pic/v2-dab935df56a5c6eca8b647d33227b9e3_720w.webp" alt="v2-dab935df56a5c6eca8b647d33227b9e3_720w"></p>
+<ul>
+<li>重载全局operator，new、delete、new[]、delete[]。</li>
+<li>这几个函数我们不会调用，是编译器会调用，<strong>我们new、delete的时候，编译器会找这几个操作符函数有没有重载。</strong></li>
+<li>重载了之后，全局的new和delete都调用这个版本。</li>
+</ul>
+<p><strong>在成员函数中重载new、delete</strong></p>
+<p><img src="/../pic/v2-9d9ecf7b8a6363697e27fefc0cdb1eba_720w.webp" alt="v2-9d9ecf7b8a6363697e27fefc0cdb1eba_720w"></p>
+<ul>
+<li>重载之后，new这个类的时候，使用重载之后的操作符函数。</li>
+</ul>
+<p><img src="/../pic/v2-7b39e17953fa0921ad65928311e7242b_720w.webp" alt="v2-7b39e17953fa0921ad65928311e7242b_720w"></p>
+<p><img src="/../pic/v2-c0a1b0dd788871baa23c4d76c94479f6_720w.webp" alt="v2-c0a1b0dd788871baa23c4d76c94479f6_720w"></p>
+<ul>
+<li>在class Foo定义中，重载了这四种操作符函数。</li>
+<li>使用者进行调用。</li>
+<li><strong>如果要跳过我们设计的这四种，强制使用全局的，那么使用::new Foo；::delete pf即可。即前面加上::。</strong></li>
+</ul>
+<p><img src="/../pic/v2-6be92ce0c738b942bdbee5870a9fa765_720w.webp" alt="v2-6be92ce0c738b942bdbee5870a9fa765_720w"></p>
+<ul>
+<li>这里面Foo的数据大小为12字节（int4字节，long4字节，string大小为指针大小，4字节）</li>
+<li>如果加上虚函数之后，会产生vptr，因此有虚函数的大小为16字节。</li>
+<li>主要看第三步和第四步，new一个Foo[5]，发现大小是64，不是60（12 * 5）。<strong>多出来的一个4字节，记录了这个数组的长度。</strong>从上到下进行构造，从下到上进行析构。</li>
+<li>同理，下面的大小是84，也不是80。</li>
+</ul>
+<p><img src="/../pic/v2-3964cfbb324035eb91326d64561724dc_720w.webp" alt="v2-3964cfbb324035eb91326d64561724dc_720w"></p>
+<ul>
+<li>加上::之后会绕过我们重载过的函数，调用全局的。</li>
+</ul>
+<p> <img src="/../pic/v2-a94532748c1040c7368e26c0ded59529_720w.webp" alt="v2-a94532748c1040c7368e26c0ded59529_720w"></p>
+<ul>
+<li>可以重载类的成员操作符函数，new()、delete()。</li>
+<li>第一个参数必须是size_t。</li>
+<li>重载delete()，不会被delete调用，只当new调用的构造函数抛出异常的时候，才调用来归还占用的内存。</li>
+</ul>
+<p><img src="/../pic/v2-6ee80b3b6eba64cab3243228f732c585_720w.webp" alt="v2-6ee80b3b6eba64cab3243228f732c585_720w"></p>
+<ul>
+<li>故意写错第一个参数，编译器会报错。</li>
+</ul>
+<p><img src="/../pic/v2-f555d8f7eb098c424d33a0ca14622ddd_720w.webp" alt="v2-f555d8f7eb098c424d33a0ca14622ddd_720w"></p>
+<ul>
+<li>举例：改写new()</li>
+</ul>
+<p><img src="/../pic/v2-406bdd8548af85f7cce2648febbf3cac_720w.webp" alt="v2-406bdd8548af85f7cce2648febbf3cac_720w"></p>
+<ul>
+<li>创建create的时候，会使用extra来存放string内容。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/12/C-%E4%B8%ADstatic%E7%9A%84%E7%94%A8%E6%B3%95/" rel="prev" title="C++中static的用法">
+                  <i class="fa fa-angle-left"></i> C++中static的用法
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈健</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
