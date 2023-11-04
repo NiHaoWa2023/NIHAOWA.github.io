@@ -112,12 +112,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -134,6 +134,302 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/01/%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈健">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/11/01/%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">递归算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-11-01 19:49:28" itemprop="dateCreated datePublished" datetime="2023-11-01T19:49:28+08:00">2023-11-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-04 10:03:57" itemprop="dateModified" datetime="2023-11-04T10:03:57+08:00">2023-11-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、翻转二叉树（226）"><a href="#一、翻转二叉树（226）" class="headerlink" title="一、翻转二叉树（226）"></a>一、翻转二叉树（226）</h2><ul>
+<li><p>给你一棵二叉树的根节点 <code>root</code> ，翻转这棵二叉树，并返回其根节点。 <img src="/../pic/invert1-tree.jpg" alt="invert1-tree"></p>
+</li>
+<li><p>思路：</p>
+<ul>
+<li>对于当前节点，交换其左右子树</li>
+<li>对其左右子树，又执行相同的操作</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 递归出口</span></span><br><span class="line">    <span class="keyword">if</span>(!root || !root-&gt;left&amp;&amp;!root-&gt;right) <span class="keyword">return</span> root;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 单层递归逻辑</span></span><br><span class="line">    <span class="built_in">swap</span>(root-&gt;left,root-&gt;right);</span><br><span class="line">    <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">    <span class="built_in">invertTree</span>(root-&gt;right);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、对称二叉树（101）"><a href="#二、对称二叉树（101）" class="headerlink" title="二、对称二叉树（101）"></a>二、对称二叉树（101）</h2><ul>
+<li>给你一个二叉树的根节点 <code>root</code> ， 检查它是否轴对称。</li>
+</ul>
+<p><img src="/../pic/1698026966-JDYPDU-image.png"></p>
+<ul>
+<li>思路：<ul>
+<li>比较root的左右子树是否对称</li>
+<li>如何比较左右子树是否对称： <ul>
+<li>根结点相同（都为空或者值相等）</li>
+<li>左子树的左子树 和 右子树的右子树 对称，左子树的右子树 和 右子树的左子树 对称</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">Compare</span><span class="params">(TreeNode* left, TreeNode* right)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 递归出口</span></span><br><span class="line">    <span class="keyword">if</span>(!left &amp;&amp; !right) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(!left || !right) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> left-&gt;val==right-&gt;val &amp;&amp; <span class="built_in">Compare</span>(left-&gt;left,right-&gt;right) &amp;&amp; <span class="built_in">Compare</span>(left-&gt;right,right-&gt;left);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isSymmetric</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Compare</span>(root-&gt;left,root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、二叉树的最大深度（104）"><a href="#三、二叉树的最大深度（104）" class="headerlink" title="三、二叉树的最大深度（104）"></a>三、二叉树的最大深度（104）</h2><ul>
+<li>给定一个二叉树 <code>root</code> ，返回其最大深度。</li>
+</ul>
+<p>二叉树的 <strong>最大深度</strong> 是指从根节点到最远叶子节点的最长路径上的节点数。</p>
+<ul>
+<li>思路：<ul>
+<li>二叉树最大深度 &#x3D; max(左子树最大深度，右子树最大深度) + 1</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">getMaxDepth</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 递归出口</span></span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> leftMaxDepth = <span class="built_in">getMaxDepth</span>(root-&gt;left);</span><br><span class="line">    <span class="type">int</span> rightMaxDepth = <span class="built_in">getMaxDepth</span>(root-&gt;right);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(leftMaxDepth,rightMaxDepth) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getMaxDepth</span>(root);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="四、二叉树的最小深度（111）"><a href="#四、二叉树的最小深度（111）" class="headerlink" title="四、二叉树的最小深度（111）"></a>四、二叉树的最小深度（111）</h2><ul>
+<li>给定一个二叉树，找出其最小深度。</li>
+</ul>
+<p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量。</p>
+<p><strong>说明：</strong>叶子节点是指没有子节点的节点。</p>
+<ul>
+<li>思路：<ul>
+<li>二叉树最小深度 &#x3D; min(左子树最小深度， 右子树最小深度) + 1</li>
+<li>但需要注意两种特殊情况：左子树为空 或者 右子树为空</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">getMinDepth</span><span class="params">(TreeNode* node)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 递归出口</span></span><br><span class="line">    <span class="keyword">if</span>(!node) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> leftDepth = <span class="built_in">getMinDepth</span>(node-&gt;left);</span><br><span class="line">    <span class="type">int</span> rightDepth = <span class="built_in">getMinDepth</span>(node-&gt;right);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(leftDepth == <span class="number">0</span>) <span class="keyword">return</span> rightDepth + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(rightDepth == <span class="number">0</span>) <span class="keyword">return</span> rightDepth + <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">min</span>(leftDepth,rightDepth) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getMinDepth</span>(root);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="五、平衡二叉树（110）"><a href="#五、平衡二叉树（110）" class="headerlink" title="五、平衡二叉树（110）"></a>五、平衡二叉树（110）</h2><ul>
+<li>给定一个二叉树，判断它是否是高度平衡的二叉树。</li>
+</ul>
+<p>本题中，一棵高度平衡二叉树定义为：</p>
+<blockquote>
+<p>一个二叉树<em>每个节点</em> 的左右两个子树的高度差的绝对值不超过 1 。</p>
+</blockquote>
+<ul>
+<li>思路：<ul>
+<li>①自底向上：只要有一个节点不平衡，那么整棵树都不平衡</li>
+<li>②自顶向下：对于一棵平衡二叉树而言，其左子树和右子树都是平衡二叉树</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自底向上</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getHigh</span><span class="params">(TreeNode* node)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!node) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> leftHigh = <span class="built_in">getHigh</span>(node-&gt;left);</span><br><span class="line">    <span class="keyword">if</span>(leftHigh == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> rightHigh = <span class="built_in">getHigh</span>(node-&gt;right);</span><br><span class="line">    <span class="keyword">if</span>(rightHigh == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> flag = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">abs</span>(leftHigh - rightHigh) &gt; <span class="number">1</span>) flag = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">else</span> flag = <span class="built_in">max</span>(leftHigh,rightHigh) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自顶向下</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getHigh</span><span class="params">(TreeNode* node)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!node) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">getHigh</span>(node-&gt;left),<span class="built_in">getHigh</span>(node-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">abs</span>(<span class="built_in">getHigh</span>(root-&gt;left)-<span class="built_in">getHigh</span>(root-&gt;right))&lt;=<span class="number">1</span>) flag = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">isBalanced</span>(root-&gt;left) &amp;&amp; <span class="built_in">isBalanced</span>(root-&gt;right) &amp;&amp; flag; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="六、二叉树的所有路径（257）"><a href="#六、二叉树的所有路径（257）" class="headerlink" title="六、二叉树的所有路径（257）"></a>六、二叉树的所有路径（257）</h2><ul>
+<li>给你一个二叉树的根节点 <code>root</code> ，按 <strong>任意顺序</strong> ，返回所有从根节点到叶子节点的路径。</li>
+</ul>
+<p><strong>叶子节点</strong> 是指没有子节点的节点。</p>
+<ul>
+<li>思路：<ul>
+<li>求从根节点到叶子节点的路径。可以分解成 求根节点的左右孩子到叶子节点的路径</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* root, string path, vector&lt;string&gt;&amp; res)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span>;</span><br><span class="line">    path += <span class="built_in">to_string</span>(root-&gt;val);</span><br><span class="line">    <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right)&#123;</span><br><span class="line">        res.<span class="built_in">push_back</span>(path);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">traversal</span>(root-&gt;left,path + <span class="string">&quot;-&gt;&quot;</span>,res);</span><br><span class="line">    <span class="built_in">traversal</span>(root-&gt;right,path + <span class="string">&quot;-&gt;&quot;</span>,res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    string path = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    vector&lt;string&gt; res = &#123;&#125;;</span><br><span class="line">    <span class="built_in">traversal</span>(root,path,res);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="七、路径总和（112）"><a href="#七、路径总和（112）" class="headerlink" title="七、路径总和（112）"></a>七、路径总和（112）</h2><ul>
+<li>给你二叉树的根节点 <code>root</code> 和一个表示目标和的整数 <code>targetSum</code> 。判断该树中是否存在 <strong>根节点到叶子节点</strong> 的路径，这条路径上所有节点值相加等于目标和 <code>targetSum</code> 。如果存在，返回 <code>true</code> ；否则，返回 <code>false</code></li>
+</ul>
+<p><strong>叶子节点</strong> 是指没有子节点的节点</p>
+<ul>
+<li>思路：<ul>
+<li>要判断根节点的路径之和是否等于<code>targetSum</code>，只需判断其左子树或右子树的路径之和是否等于<code>targetSum - root-&gt;val</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode* root, <span class="type">int</span> targetSum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right) <span class="keyword">return</span> root-&gt;val == targetSum;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">hasPathSum</span>(root-&gt;left,targetSum-root-&gt;val)|| <span class="built_in">hasPathSum</span>(root-&gt;right,targetSum-root-&gt;val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="八、从中序与后序遍历序列构造二叉树（106）"><a href="#八、从中序与后序遍历序列构造二叉树（106）" class="headerlink" title="八、从中序与后序遍历序列构造二叉树（106）"></a>八、从中序与后序遍历序列构造二叉树（106）</h2><ul>
+<li><p>给定两个整数数组 <code>inorder</code> 和 <code>postorder</code> ，其中 <code>inorder</code> 是二叉树的中序遍历， <code>postorder</code> 是同一棵树的后序遍历，请你构造并返回这颗 <em>二叉树</em> 。 </p>
+</li>
+<li><p>思路：</p>
+<ul>
+<li><code>postorder</code>数组中的最后一个元素，将<code>inorder</code>数组分成两部分，分别是左子树和右子树</li>
+<li>根据左子树和右子树的长度，可以将<code>postorder</code>数组分成 左子树和右子树 两部分</li>
+<li>对左子树和右子树重复相同操作</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">traversal</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span></span>&#123;</span><br><span class="line">        <span class="type">int</span> delimiterIndex = postorder[postorder.<span class="built_in">size</span>() - <span class="number">1</span>];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(delimiterIndex);</span><br><span class="line">        <span class="keyword">if</span>(inorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">if</span>(inorder.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(;i &lt; inorder.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(delimiterIndex == inorder[i])</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderLeft</span><span class="params">(inorder.begin(),inorder.begin()+i)</span></span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderRight</span><span class="params">(inorder.begin()+i+<span class="number">1</span>,inorder.end())</span></span>;</span><br><span class="line"></span><br><span class="line">        postorder.<span class="built_in">pop_back</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderLeft</span><span class="params">(postorder.begin(),postorder.begin()+inorderLeft.size())</span></span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderRight</span><span class="params">(postorder.begin()+inorderLeft.size(),postorder.end())</span></span>;</span><br><span class="line"></span><br><span class="line">        root-&gt;left = <span class="built_in">buildTree</span>(inorderLeft,postorderLeft);</span><br><span class="line">        root-&gt;right = <span class="built_in">buildTree</span>(inorderRight,postorderRight);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span> </span>&#123;       </span><br><span class="line">        <span class="keyword">if</span>(inorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(inorder,postorder);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="九、从前序与中序遍历序列构造二叉树（105）"><a href="#九、从前序与中序遍历序列构造二叉树（105）" class="headerlink" title="九、从前序与中序遍历序列构造二叉树（105）"></a>九、从前序与中序遍历序列构造二叉树（105）</h2><ul>
+<li>给定两个整数数组 <code>preorder</code> 和 <code>inorder</code> ，其中 <code>preorder</code> 是二叉树的<strong>先序遍历</strong>， <code>inorder</code> 是同一棵树的<strong>中序遍历</strong>，请构造二叉树并返回其根节点。 </li>
+<li>思路：<ul>
+<li>与第八题大致相同</li>
+<li>其优化在于，通过在原数组上修改下标区间，从而达到“划分左右子树的效果”，这样就不用创建新的vector了</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">traversal</span> <span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, <span class="type">int</span> inorderBegin, <span class="type">int</span> inorderEnd, vector&lt;<span class="type">int</span>&gt;&amp; preorder, <span class="type">int</span> preorderBegin, <span class="type">int</span> preorderEnd)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (preorderBegin == preorderEnd) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="type">int</span> rootVal = preorder[preorderBegin];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootVal);</span><br><span class="line">        <span class="keyword">if</span>(inorderEnd - inorderBegin == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> delimiterIndex = inorderBegin;</span><br><span class="line">        <span class="keyword">for</span>(; delimiterIndex &lt; inorderEnd; delimiterIndex++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(inorder[delimiterIndex] == rootVal)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> inorderLeftBegin = inorderBegin;</span><br><span class="line">        <span class="type">int</span> inorderLeftEnd = delimiterIndex;</span><br><span class="line">        <span class="type">int</span> inorderRightBegin = delimiterIndex + <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> inorderRightEnd = inorderEnd;</span><br><span class="line">		</span><br><span class="line">    	<span class="type">int</span> leftTreeLen = delimiter - inorderBegin;</span><br><span class="line">        <span class="type">int</span> preorderLeftBegin = preorderBegin + <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> preorderLeftEnd = preorderBegin + <span class="number">1</span> + leftTreeLen;</span><br><span class="line">        <span class="type">int</span> preorderRightBegin = preorderBegin + <span class="number">1</span> + leftTreeLen;</span><br><span class="line">        <span class="type">int</span> preorderRightEnd = preorderEnd;</span><br><span class="line"></span><br><span class="line">        root-&gt;left = <span class="built_in">traversal</span>(inorder,inorderLeftBegin,inorderLeftEnd,preorder,preorderLeftBegin,preorderLeftEnd);</span><br><span class="line">        root-&gt;right = <span class="built_in">traversal</span>(inorder,inorderRightBegin,inorderRightEnd,preorder,preorderRightBegin,preorderRightEnd);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (inorder.<span class="built_in">size</span>() == <span class="number">0</span> || preorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(inorder,<span class="number">0</span>,inorder.<span class="built_in">size</span>(),preorder,<span class="number">0</span>,preorder.<span class="built_in">size</span>());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="十、最大二叉树（654）"><a href="#十、最大二叉树（654）" class="headerlink" title="十、最大二叉树（654）"></a>十、最大二叉树（654）</h2><ul>
+<li>给定一个不重复的整数数组 <code>nums</code> 。 <strong>最大二叉树</strong> 可以用下面的算法从 <code>nums</code> 递归地构建:</li>
+</ul>
+<ol>
+<li>创建一个根节点，其值为 <code>nums</code> 中的最大值。</li>
+<li>递归地在最大值 <strong>左边</strong> 的 <strong>子数组前缀上</strong> 构建左子树。</li>
+<li>递归地在最大值 <strong>右边</strong> 的 <strong>子数组后缀上</strong> 构建右子树。</li>
+</ol>
+<p>返回 <em><code>nums</code> 构建的</em> <strong>最大二叉树</strong> 。</p>
+<ul>
+<li>思路：<ul>
+<li>递归的思路 题目给的清晰明了</li>
+<li>划分左右子树，选择了与第九题同样的思路，一定要注意区间的定义</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">constructMaxTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> begin, <span class="type">int</span> end)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(begin - end == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>; <span class="comment">// 不要用nums.size()</span></span><br><span class="line">        <span class="type">int</span> delimiterIndex = begin;</span><br><span class="line">        <span class="type">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = begin; i &lt; end; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(max &lt; nums[i])</span><br><span class="line">                max = nums[i];</span><br><span class="line">        &#125; </span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(max);</span><br><span class="line">        <span class="keyword">if</span>(end - begin == <span class="number">1</span>) <span class="keyword">return</span> root; <span class="comment">// 不要用nums.size()</span></span><br><span class="line">        <span class="keyword">for</span>(; delimiterIndex &lt; end; delimiterIndex++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(max == nums[delimiterIndex])</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> leftBegin = begin; <span class="comment">// 不要用0</span></span><br><span class="line">        <span class="type">int</span> leftEnd = delimiterIndex;</span><br><span class="line">        <span class="type">int</span> rightBegin = delimiterIndex + <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> rightEnd = end; <span class="comment">// 不要用nums.size()</span></span><br><span class="line"></span><br><span class="line">        root-&gt;left = <span class="built_in">constructMaxTree</span>(nums,leftBegin,leftEnd);</span><br><span class="line">        root-&gt;right = <span class="built_in">constructMaxTree</span>(nums,rightBegin,rightEnd);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">constructMaximumBinaryTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">constructMaxTree</span>(nums,<span class="number">0</span>,nums.<span class="built_in">size</span>());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="十一、合并二叉树（617）"><a href="#十一、合并二叉树（617）" class="headerlink" title="十一、合并二叉树（617）"></a>十一、合并二叉树（617）</h2><ul>
+<li><p>给你两棵二叉树： <code>root1</code> 和 <code>root2</code> 。</p>
+<p>想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，<strong>不为</strong> null 的节点将直接作为新二叉树的节点。</p>
+<p>返回合并后的二叉树。</p>
+<p><strong>注意:</strong> 合并过程必须从两个树的根节点开始。</p>
+</li>
+<li><p>思路：</p>
+<ul>
+<li>合并 <code>root1</code> 和<code>root2</code> 可以分解成 合并<code>root1</code> 和<code>root2</code>的根节点 + 合并 <code>root1-&gt;left</code> 和<code>root2-&gt;left</code> + 合并<code>root1-&gt;right</code> 和<code>root2-&gt;right</code></li>
+<li>合并子树的方式和合并 <code>root1</code> 和<code>root2</code>方式一样，可以调用自己</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">mergeTrees</span><span class="params">(TreeNode* root1, TreeNode* root2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root1 == <span class="literal">nullptr</span> &amp;&amp; root2 == <span class="literal">nullptr</span>) </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">if</span>(root1 == <span class="literal">nullptr</span> || root2 == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root1) </span><br><span class="line">                <span class="keyword">return</span> root1;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                <span class="keyword">return</span> root2;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(root1-&gt;val + root2-&gt;val);</span><br><span class="line">        root-&gt;left = <span class="built_in">mergeTrees</span>(root1-&gt;left,root2-&gt;left);</span><br><span class="line">        root-&gt;right = <span class="built_in">mergeTrees</span>(root1-&gt;right,root2-&gt;right);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="十二、二叉搜索树（700）"><a href="#十二、二叉搜索树（700）" class="headerlink" title="十二、二叉搜索树（700）"></a>十二、二叉搜索树（700）</h2><ul>
+<li>给定二叉搜索树（BST）的根节点 <code>root</code> 和一个整数值 <code>val</code>。</li>
+</ul>
+<p>你需要在 BST 中找到节点值等于 <code>val</code> 的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 <code>null</code> 。</p>
+<ul>
+<li>思路：<ul>
+<li>递归思路：先搜索根节点，根节点不匹配就去左右子树搜索</li>
+<li>处理细节：搜索二叉树有个性质，<code>if(root-&gt;val &gt; val)</code>，则val只能出现在左子树（当然也可能不存在）；反之，则val只能出现在右子树</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">searchBST</span><span class="params">(TreeNode* root, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val == val) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &gt; val)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">searchBST</span>(root-&gt;left,val);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">searchBST</span>(root-&gt;right,val);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="十三、验证二叉搜索树（98）"><a href="#十三、验证二叉搜索树（98）" class="headerlink" title="十三、验证二叉搜索树（98）"></a>十三、验证二叉搜索树（98）</h2><ul>
+<li>给你一个二叉树的根节点 <code>root</code> ，判断其是否是一个有效的二叉搜索树。</li>
+</ul>
+<p><strong>有效</strong> 二叉搜索树定义如下：</p>
+<ul>
+<li>节点的左子树只包含 <strong>小于</strong> 当前节点的数。</li>
+<li>节点的右子树只包含 <strong>大于</strong> 当前节点的数。</li>
+<li>所有左子树和右子树自身必须也是二叉搜索树。</li>
+</ul>
+<ul>
+<li><p>思路：</p>
+<ul>
+<li><p>思路一：二叉搜索树的中序遍历序列是递增的</p>
+</li>
+<li><p>思路二：根据二叉搜索树的定义，只需判断左子树上所有的值都在[极小值，root-&gt;val）区间上，而右子树上所有的值都在(root-&gt;val,极大值] 区间上</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一：</span></span><br><span class="line"> <span class="function"><span class="type">void</span> <span class="title">inorderTraversal</span><span class="params">(TreeNode* root, vector&lt;<span class="type">int</span>&gt;&amp; path)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="built_in">inorderTraversal</span>(root-&gt;left, path);</span><br><span class="line">        path.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="built_in">inorderTraversal</span>(root-&gt;right,path);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; inorder = &#123;&#125;;</span><br><span class="line">        <span class="built_in">inorderTraversal</span>(root,inorder);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; inorder.<span class="built_in">size</span>() - <span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(inorder[i] &gt;= inorder[i+<span class="number">1</span>])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二：</span></span><br><span class="line"> <span class="function"><span class="type">bool</span> <span class="title">is_validBST</span><span class="params">(TreeNode* node, <span class="type">long</span> lower, <span class="type">long</span> upper)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!node) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;val &lt;= lower || node-&gt;val &gt;= upper)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">is_validBST</span>(node-&gt;left, lower, node-&gt;val) &amp;&amp;</span><br><span class="line">                <span class="built_in">is_validBST</span>(node-&gt;right, node-&gt;val, upper);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">is_validBST</span>(root, LONG_MIN, LONG_MAX);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
